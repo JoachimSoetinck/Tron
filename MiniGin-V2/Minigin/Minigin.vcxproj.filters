@@ -120,12 +120,6 @@
     <ClInclude Include="SpriteComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="SoundSystem.h">
-      <Filter>Sound</Filter>
-    </ClInclude>
-    <ClInclude Include="SDL_SoundSystem.h">
-      <Filter>Sound</Filter>
-    </ClInclude>
     <ClInclude Include="XboxController.h">
       <Filter>Controller</Filter>
     </ClInclude>
@@ -139,6 +133,9 @@
       <Filter>Controller</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBody.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -224,12 +221,6 @@
     <ClCompile Include="SpriteComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="SoundSystem.cpp">
-      <Filter>Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="SDL_SoundSystem.cpp">
-      <Filter>Sound</Filter>
-    </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>Controller</Filter>
     </ClCompile>
@@ -243,6 +234,9 @@
       <Filter>Controller</Filter>
     </ClCompile>
     <ClCompile Include="Sprite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBody.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

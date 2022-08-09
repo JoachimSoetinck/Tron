@@ -160,11 +160,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CustomCommands.cpp" />
+    <ClCompile Include="TankComponent.cpp" />
     <ClCompile Include="Tron.cpp" />
     <ClCompile Include="TronGame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CustomCommands.h" />
+    <ClInclude Include="TankComponent.h" />
     <ClInclude Include="TronGame.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

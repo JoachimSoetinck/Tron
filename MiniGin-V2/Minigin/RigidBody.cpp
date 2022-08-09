@@ -18,5 +18,7 @@ void dae::RigidBody::Move(const glm::vec2& direction)
 	auto newPos = GetGameObject()->GetLocalPosition();
 	newPos.x += m_Velocity.x;
 	newPos.y += m_Velocity.y;
+
+
 	GetGameObject()->SetPosition(newPos.x, newPos.y);
 }

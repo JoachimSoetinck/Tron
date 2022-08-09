@@ -9,7 +9,6 @@
 
 #include "Minigin.h"
 
-#include "SoundSystem.h"
 #include "TronGame.h"
 
 int main(int, char* []) {
