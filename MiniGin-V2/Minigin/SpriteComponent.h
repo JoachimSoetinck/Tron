@@ -29,6 +29,7 @@ public:
 
 	void ResetSprite();
 
+
 	Sprite GetSprite()const { return m_Sprite; }
 	SDL_Rect GetDestRect() const { return m_DstRect; }
 private:
