@@ -16,8 +16,7 @@
 #include "FPSComponent.h"
 #include "Command.h"
 #include "Observer.h"
-#include "SDL_SoundSystem.h"
-#include "SoundSystem.h"
+
 
 #include "Timer.h"
 
@@ -61,7 +60,7 @@ void dae::Minigin::Initialize()
 
 	Renderer::GetInstance().Init(m_Window);
 
-	ServiceLocator::RegisterSoundSystem(new SDL_SoundSystem());
+	
 
 }
 
@@ -78,7 +77,7 @@ void dae::Minigin::LoadGame() const
 void dae::Minigin::Cleanup()
 {
 
-	ServiceLocator::DestroySoundSystem();
+	
 	Renderer::GetInstance().Destroy();
 	
 	SDL_DestroyWindow(m_Window);
