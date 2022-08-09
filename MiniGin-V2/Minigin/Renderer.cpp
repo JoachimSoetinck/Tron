@@ -145,6 +145,18 @@ void dae::Renderer::RenderTexture(const Texture2D& texture, const SDL_Rect& srcR
 	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), &srcRect, &dst);
 }
 
+void dae::Renderer::RenderRectangle(const SDL_Rect& rect, SDL_Color color) const
+{
+	SDL_SetRenderDrawColor(GetSDLRenderer(), color.r, color.g, color.b, color.a);
+	SDL_RenderFillRect(GetSDLRenderer(), &rect);
+}
+
+void dae::Renderer::RenderPoint(const glm::vec2 point)
+{
+	SDL_SetRenderDrawColor(GetSDLRenderer(), 255, 255, 255, 1);
+	SDL_RenderDrawPoint(GetSDLRenderer(), (int)point.x, (int)point.y);
+}
+
 
 
 
