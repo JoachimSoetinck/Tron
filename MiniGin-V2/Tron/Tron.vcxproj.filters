@@ -16,6 +16,9 @@
     <Filter Include="Components">
       <UniqueIdentifier>{56d8ec40-eff9-4a72-ad4e-87453178595a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Managers">
+      <UniqueIdentifier>{5b45d5b5-5153-4ba5-b52a-722a99610be4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TronGame.cpp">
@@ -30,6 +33,15 @@
     <ClCompile Include="TankComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="BulletComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="WallComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TronGame.h">
@@ -40,6 +52,15 @@
     </ClInclude>
     <ClInclude Include="TankComponent.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="WallComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletManager.h">
+      <Filter>Managers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

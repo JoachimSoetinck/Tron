@@ -20,11 +20,12 @@ void CollisionComponent::FixedUpdate()
 
 void CollisionComponent::Render() const
 {
+#ifdef _DEBUG
+       const auto pos = GetGameObject()->GetLocalPosition();
+        const SDL_Rect CollisionBox{ static_cast<int>(m_CollisionBox.x + pos.x),static_cast<int>(m_CollisionBox.y + pos.y),m_CollisionBox.w,m_CollisionBox.h };
+        dae::Renderer::GetInstance().DrawRectangle(CollisionBox, m_Color);
 
-       // const auto pos = GetGameObject()->GetLocalPosition();
-        //const SDL_Rect CollisionBox{ static_cast<int>(m_CollisionBox.x + objPos.x),static_cast<int>(m_CollisionBox.y + objPos.y),m_CollisionBox.w,m_CollisionBox.h };
-       // dae::Renderer::GetInstance().RenderRectangle(colWorldPos, m_Color);
-
+#endif
 }
 
 bool CollisionComponent::IsOverlapping(const CollisionComponent* collision2) const
@@ -44,9 +45,9 @@ bool CollisionComponent::IsOverlapping(const CollisionComponent* collision2) con
     const SDL_Point l2{ collisionBoxOne.x,collisionBoxOne.y + collisionBoxOne.h }, r2{ collisionBoxOne.x + collisionBoxOne.w, collisionBoxOne.y };
 
 
-    SDL_Rect intersect{};
+   /* SDL_Rect intersect{};
     auto isOverlapping = SDL_IntersectRect(&otherColPos,&m_CollisionBox ,&intersect );
-    return isOverlapping;
+    return isOverlapping;*/
 
     return !(l1.x >= r2.x || l2.x >= r1.x || l1.y <= r2.y || l2.y <= r1.y);
 

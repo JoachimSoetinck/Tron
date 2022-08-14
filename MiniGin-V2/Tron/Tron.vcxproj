@@ -159,15 +159,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BulletComponent.cpp" />
+    <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="CustomCommands.cpp" />
     <ClCompile Include="TankComponent.cpp" />
     <ClCompile Include="Tron.cpp" />
     <ClCompile Include="TronGame.cpp" />
+    <ClCompile Include="WallComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BulletComponent.h" />
+    <ClInclude Include="BulletManager.h" />
     <ClInclude Include="CustomCommands.h" />
     <ClInclude Include="TankComponent.h" />
     <ClInclude Include="TronGame.h" />
+    <ClInclude Include="WallComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

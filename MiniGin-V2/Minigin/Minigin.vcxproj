@@ -496,6 +496,7 @@
     <ClInclude Include="..\3rdParty\imgui-master\imstb_truetype.h" />
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="BaseController.h" />
+    <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="Font.h" />
@@ -661,6 +662,7 @@
     </ClCompile>
     <ClCompile Include="BaseComponent.cpp" />
     <ClCompile Include="BaseController.cpp" />
+    <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FPSComponent.cpp" />

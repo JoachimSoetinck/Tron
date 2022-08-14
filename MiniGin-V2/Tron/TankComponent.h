@@ -26,10 +26,19 @@ namespace dae
 		void Render() const override;
 		void FixedUpdate() override;
 
+		
+
 	private:
 		TankState m_CurrentState;
 		glm::ivec2 m_direction{ 0,0 };
+		glm::vec2 m_lookPoint{0,0};
 		dae::RigidBody* m_RigidBody;
+		
+
+		void Attack() const;
+		void Rotate();
+
+		bool IsPointInRect(const glm::vec2& point, SDL_Rect rect);
 	};
 }
 

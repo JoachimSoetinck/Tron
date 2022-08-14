@@ -18,8 +18,7 @@ public:
 	void Render() const override;
 
 	bool IsOverlapping(const CollisionComponent* collisionBox) const;
-	bool IsOverlapping(const SDL_Rect collisionBox) const;
-	bool IsPointInRect(const glm::vec2& point);
+
 
 	SDL_Rect GetCollisionBox() const { return m_CollisionBox; }
 
