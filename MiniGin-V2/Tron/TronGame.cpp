@@ -1,5 +1,6 @@
 #include "TronGame.h"
 
+#include "ButtonComponent.h"
 #include "CollisionComponent.h"
 #include "CustomCommands.h"
 #include "GameObject.h"
@@ -40,7 +41,7 @@ void TronGame::LoadGame() const
 	Tank->AddComponent(new dae::RigidBody(Tank.get()));
 	Tank->AddComponent(new CollisionComponent(Tank.get(), 25));
 	Tank->AddComponent(new dae::TankComponent(Tank.get()));
-	Tank->SetPosition(50, 50);
+	Tank->SetPosition(50, 100);
 
 
 	const auto Tank2{ std::make_shared<dae::GameObject>() };
@@ -76,15 +77,23 @@ void TronGame::LoadGame() const
 	//dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_S, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
 
 
-	//auto font = dae::ResourceManager::GetInstance().LoadFont("BurgerTimeFont.otf", 20);
+	auto font = dae::ResourceManager::GetInstance().LoadFont("BurgerTimeFont.otf", 20);
 
 	scene.Add(Tank);
 	scene.Add(Tank2);
 
-
+	const auto Button{ std::make_shared<dae::GameObject>() };
+	auto textComponent = new dae::TextComponent(Button.get(), "Click Here", font);
+	textComponent->SetPosition({ 40, 10,0 });
+	Button->AddComponent(textComponent);
+	Button->AddComponent(new dae::ButtonComponent(Button.get(), textComponent));
+	
+	scene.Add(Button);
+	
+	
 
 	const auto wall{ std::make_shared<dae::GameObject>() };
-	wall->AddComponent(new WallComponent{ wall.get(), {0, 0, 480, 16} });
+	wall->AddComponent(new WallComponent{ wall.get(), {0, 50, 480, 16} });
 	scene.Add(wall);
 
 	

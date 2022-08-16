@@ -4,10 +4,6 @@
 #include "GameObject.h"
 #include "Renderer.h"
 
-//https://stackoverflow.com/questions/5080477/debug-only-code-that-should-run-only-when-turned-on
-#if DEBUG
-private  bool CollisionBox = true;
-#endif
 
 void CollisionComponent::Update()
 {

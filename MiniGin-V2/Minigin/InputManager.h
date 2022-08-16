@@ -81,8 +81,11 @@ namespace dae
 		void RemoveCommand(XboxController::Button button, std::shared_ptr<Command> command, int playerNr, EInputState state = EInputState::Down);
 		void RemoveCommand(SDL_Scancode keyBoardKey, std::shared_ptr<Command> command, int playerNr, EInputState state = EInputState::Down);
 
-	private:
+		glm::ivec2 GetMousePos()const { return m_MousePos; };
 
+		bool IsMousePress() const { return m_isPressed; };
+	private:
+		
 		
 		const Uint8* m_pCurrentState{};
 		Uint8* m_pPreviousState{};
@@ -94,6 +97,10 @@ namespace dae
 		std::vector<std::unique_ptr<KeyBoard>> m_pKeyBoards{};
 
 		SDL_Event m_Event{};
+
+		glm::ivec2 m_MousePos{};
+
+		bool m_isPressed{ false };
 
 
 

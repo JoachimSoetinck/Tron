@@ -32,10 +32,15 @@ bool dae::InputManager::ProcessInput()
 
 	SDL_Event e;
 	while (SDL_PollEvent(&e)) {
+		SDL_GetMouseState(&m_MousePos.x, &m_MousePos.y);
 		if (e.type == SDL_QUIT) {
 			return false;
 		}
 
+		if(e.type == SDL_MOUSEBUTTONUP)
+		{
+			
+		}
 		ImGui_ImplSDL2_ProcessEvent(&e);
 		if (e.type == SDL_KEYDOWN) {
 
@@ -56,7 +61,20 @@ bool dae::InputManager::ProcessInput()
 
 			}
 		}
+		if(e.type == SDL_MOUSEBUTTONDOWN && m_isPressed == false)
+		{
+			if (e.button.button == SDL_BUTTON_LEFT)
+				m_isPressed = true;
+		}
+
+		if (e.type == SDL_MOUSEBUTTONUP )
+		{
+			if (e.button.button == SDL_BUTTON_LEFT)
+				m_isPressed = false;
+		}
 	}
+
+
 
 	Update();
 

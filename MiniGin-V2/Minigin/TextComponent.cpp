@@ -11,6 +11,19 @@ dae::TextComponent::TextComponent(dae::GameObject* pGO, const std::string& text,
 	, m_NeedsUpdate(true), m_Text(text), m_Font(font), m_TextTexture(nullptr), m_Color({ 255,255,255 })
 	, m_Transform(pGO)
 {
+	const auto surf = TTF_RenderText_Blended(m_Font->GetFont(), m_Text.c_str(), m_Color);
+	if (surf == nullptr)
+	{
+		throw std::runtime_error(std::string("Render text failed: ") + SDL_GetError());
+	}
+	auto texture = SDL_CreateTextureFromSurface(Renderer::GetInstance().GetSDLRenderer(), surf);
+	if (texture == nullptr)
+	{
+		throw std::runtime_error(std::string("Create text texture from surface failed: ") + SDL_GetError());
+	}
+	SDL_FreeSurface(surf);
+	m_TextTexture = std::make_shared<Texture2D>(texture);
+	m_NeedsUpdate = false;
 }
 
 dae::TextComponent::TextComponent(dae::GameObject* pGO)
@@ -18,6 +31,19 @@ dae::TextComponent::TextComponent(dae::GameObject* pGO)
 	, m_NeedsUpdate(true), m_Text(" "), m_Font(ResourceManager::GetInstance().LoadFont("Lingua.otf", 36)), m_TextTexture(nullptr), m_Color({ 255,255,255 })
 	, m_Transform(pGO)
 {
+	const auto surf = TTF_RenderText_Blended(m_Font->GetFont(), m_Text.c_str(), m_Color);
+	if (surf == nullptr)
+	{
+		throw std::runtime_error(std::string("Render text failed: ") + SDL_GetError());
+	}
+	auto texture = SDL_CreateTextureFromSurface(Renderer::GetInstance().GetSDLRenderer(), surf);
+	if (texture == nullptr)
+	{
+		throw std::runtime_error(std::string("Create text texture from surface failed: ") + SDL_GetError());
+	}
+	SDL_FreeSurface(surf);
+	m_TextTexture = std::make_shared<Texture2D>(texture);
+	m_NeedsUpdate = false;
 }
 
 void dae::TextComponent::Update()
@@ -64,6 +90,7 @@ void dae::TextComponent::SetText(const std::string& text)
 void dae::TextComponent::SetFont(std::shared_ptr<Font> font)
 {
 	m_Font = font;
+	m_NeedsUpdate = true;
 }
 
 void dae::TextComponent::SetPosition(glm::vec3 location)
@@ -73,5 +100,8 @@ void dae::TextComponent::SetPosition(glm::vec3 location)
 
 std::shared_ptr<dae::Texture2D> dae::TextComponent::GetTexture() const
 {
+	int width, height;
+	SDL_QueryTexture(m_TextTexture->GetSDLTexture(), NULL, NULL, &width, &height);
+	
 	return m_TextTexture;
 }

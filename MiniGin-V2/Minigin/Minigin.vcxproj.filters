@@ -25,7 +25,7 @@
     <Filter Include="Controller">
       <UniqueIdentifier>{3a9cb5f5-4b22-4df8-b8d2-a8c833063826}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Controller\imgui">
+    <Filter Include="imgui">
       <UniqueIdentifier>{99d85c15-e8f1-4612-9407-5fc627a9b46f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -79,31 +79,31 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="..\3rdParty\imgui-master\imconfig.h">
-      <Filter>Controller\imgui</Filter>
+      <Filter>imgui</Filter>
     </ClInclude>
     <ClInclude Include="..\3rdParty\imgui-master\imgui.h">
-      <Filter>Controller\imgui</Filter>
+      <Filter>imgui</Filter>
     </ClInclude>
     <ClInclude Include="..\3rdParty\imgui-master\imgui_internal.h">
-      <Filter>Controller\imgui</Filter>
+      <Filter>imgui</Filter>
     </ClInclude>
     <ClInclude Include="..\3rdParty\imgui-master\imstb_rectpack.h">
-      <Filter>Controller\imgui</Filter>
+      <Filter>imgui</Filter>
     </ClInclude>
     <ClInclude Include="..\3rdParty\imgui-master\imstb_textedit.h">
-      <Filter>Controller\imgui</Filter>
+      <Filter>imgui</Filter>
     </ClInclude>
     <ClInclude Include="..\3rdParty\imgui-master\imstb_truetype.h">
-      <Filter>Controller\imgui</Filter>
+      <Filter>imgui</Filter>
     </ClInclude>
     <ClInclude Include="..\3rdParty\imgui-master\backends\imgui_impl_opengl2.h">
-      <Filter>Controller\imgui</Filter>
+      <Filter>imgui</Filter>
     </ClInclude>
     <ClInclude Include="..\3rdParty\imgui-master\backends\imgui_impl_sdl.h">
-      <Filter>Controller\imgui</Filter>
+      <Filter>imgui</Filter>
     </ClInclude>
     <ClInclude Include="..\3rdParty\imgui-master\imgui_plot.h">
-      <Filter>Controller\imgui</Filter>
+      <Filter>imgui</Filter>
     </ClInclude>
     <ClInclude Include="Command.h">
       <Filter>Header Files</Filter>
@@ -139,6 +139,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CollisionComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
@@ -186,28 +189,28 @@
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="..\3rdParty\imgui-master\imgui_widgets.cpp">
-      <Filter>Controller\imgui</Filter>
+      <Filter>imgui</Filter>
     </ClCompile>
     <ClCompile Include="..\3rdParty\imgui-master\imgui_demo.cpp">
-      <Filter>Controller\imgui</Filter>
+      <Filter>imgui</Filter>
     </ClCompile>
     <ClCompile Include="..\3rdParty\imgui-master\imgui_draw.cpp">
-      <Filter>Controller\imgui</Filter>
+      <Filter>imgui</Filter>
     </ClCompile>
     <ClCompile Include="..\3rdParty\imgui-master\imgui_tables.cpp">
-      <Filter>Controller\imgui</Filter>
+      <Filter>imgui</Filter>
     </ClCompile>
     <ClCompile Include="..\3rdParty\imgui-master\imgui.cpp">
-      <Filter>Controller\imgui</Filter>
+      <Filter>imgui</Filter>
     </ClCompile>
     <ClCompile Include="..\3rdParty\imgui-master\backends\imgui_impl_opengl2.cpp">
-      <Filter>Controller\imgui</Filter>
+      <Filter>imgui</Filter>
     </ClCompile>
     <ClCompile Include="..\3rdParty\imgui-master\backends\imgui_impl_sdl.cpp">
-      <Filter>Controller\imgui</Filter>
+      <Filter>imgui</Filter>
     </ClCompile>
     <ClCompile Include="..\3rdParty\imgui-master\imgui_plot.cpp">
-      <Filter>Controller\imgui</Filter>
+      <Filter>imgui</Filter>
     </ClCompile>
     <ClCompile Include="Command.cpp">
       <Filter>Source Files</Filter>
@@ -243,6 +246,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CollisionComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>
