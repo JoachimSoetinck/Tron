@@ -1,6 +1,11 @@
 #pragma once
 #include "BaseComponent.h"
 
+namespace dae
+{
+	class RigidBody;
+}
+
 class BulletComponent final: public dae::BaseComponent
 {
 public:
@@ -16,8 +21,10 @@ public:
 	void FixedUpdate() override;
 
 private:
-	glm::vec2 m_direction;
+	glm::vec2 m_direction{1,0};
 	int m_NrOfBounces{ 0 };
 	const int m_maxNrOfBounces;
+
+	dae::RigidBody* m_pRigidBody{};
 };
 

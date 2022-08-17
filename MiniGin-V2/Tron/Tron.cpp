@@ -14,10 +14,7 @@
 int main(int, char* []) {
 	TronGame engine;
 
-	
-
 	engine.Run();
 
-	
 	return 0;
 }

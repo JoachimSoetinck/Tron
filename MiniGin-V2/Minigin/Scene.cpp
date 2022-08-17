@@ -47,5 +47,10 @@ void Scene::Render() const
 	}
 }
 
+void dae::Scene::Remove(std::shared_ptr<GameObject> object)
+{
+	m_Objects.erase(std::remove(m_Objects.begin(), m_Objects.end(), object));
+}
+
 
 

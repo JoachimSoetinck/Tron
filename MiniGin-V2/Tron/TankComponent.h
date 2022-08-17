@@ -31,6 +31,7 @@ namespace dae
 	private:
 		TankState m_CurrentState;
 		glm::ivec2 m_direction{ 0,0 };
+		glm::ivec2 m_lookDirection{ 1,0 };
 		glm::vec2 m_lookPoint{0,0};
 		dae::RigidBody* m_RigidBody;
 		

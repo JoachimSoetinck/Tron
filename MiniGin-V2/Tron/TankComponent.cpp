@@ -1,5 +1,7 @@
 #include "TankComponent.h"
 
+#include "BulletComponent.h"
+#include "BulletManager.h"
 #include "CollisionComponent.h"
 #include "GameObject.h"
 #include "Scene.h"
@@ -24,18 +26,20 @@ void dae::TankComponent::SetState(TankState state)
 	case TankState::Left:
 	{
 		m_direction = { -1,0 };
-	
+		m_lookDirection = { -1,0 };
+
 		spriteComp->SetRotation(270);
 		m_lookPoint.x = GetGameObject()->GetLocalPosition().x;
 		m_lookPoint.y = GetGameObject()->GetLocalPosition().y + spriteComp->GetDestRect().h / 2;
-		
+
 		break;
 	}
 
 	case TankState::Right:
 	{
 		m_direction = { 1,0 };
-		m_lookPoint.x = GetGameObject()->GetLocalPosition().x + spriteComp->GetDestRect().w ;
+		m_lookDirection = { 1,0 };
+		m_lookPoint.x = GetGameObject()->GetLocalPosition().x + spriteComp->GetDestRect().w;
 		m_lookPoint.y = GetGameObject()->GetLocalPosition().y + spriteComp->GetDestRect().h / 2;
 		spriteComp->SetRotation(90);
 		break;
@@ -44,7 +48,8 @@ void dae::TankComponent::SetState(TankState state)
 	case TankState::Up:
 	{
 		m_direction = { 0,-1 };
-		m_lookPoint.x = GetGameObject()->GetLocalPosition().x + spriteComp->GetDestRect().w /2 ;
+		m_lookDirection = { 0,-1 };
+		m_lookPoint.x = GetGameObject()->GetLocalPosition().x + spriteComp->GetDestRect().w / 2;
 		m_lookPoint.y = GetGameObject()->GetLocalPosition().y;
 		spriteComp->SetRotation(0);
 		break;
@@ -53,10 +58,18 @@ void dae::TankComponent::SetState(TankState state)
 	case TankState::Down:
 	{
 		m_direction = { 0,1 };
+		m_lookDirection = { 1,0 };
 		m_lookPoint.x = GetGameObject()->GetLocalPosition().x + spriteComp->GetDestRect().w / 2;
 		m_lookPoint.y = GetGameObject()->GetLocalPosition().y + spriteComp->GetDestRect().h;
 		spriteComp->SetRotation(180);
 
+		break;
+	}
+	case TankState::Attack:
+	{
+		Attack();
+		m_direction = { 0,0 };
+		SetState(TankState::idle);
 		break;
 	}
 	default:
@@ -90,9 +103,9 @@ void dae::TankComponent::FixedUpdate()
 	{
 		if (object->GetComponent<WallComponent>())
 		{
-			bool isColliding = IsPointInRect(m_lookPoint,object->GetComponent<WallComponent>()->GetWallInfo());
+			bool isColliding = IsPointInRect(m_lookPoint, object->GetComponent<WallComponent>()->GetWallInfo());
 
-		
+
 			if (isColliding)
 			{
 				SetState(TankState::idle);
@@ -111,9 +124,18 @@ void dae::TankComponent::FixedUpdate()
 
 
 
-
 void dae::TankComponent::Attack() const
 {
+	const auto bullet{ std::make_shared<dae::GameObject>() };
+	bullet->AddComponent(new CollisionComponent(bullet.get(), 10));
+	bullet->AddComponent(new SpriteComponent(bullet.get(), Sprite("TronSprite.png", 1, 1, { 192,0,10,10 }), { 0,0,10,10 }));
+	bullet->AddComponent(new RigidBody(bullet.get()));
+	bullet->AddComponent(new BulletComponent(bullet.get(), m_lookDirection));
+
+	const auto pos{ GetGameObject()->GetLocalPosition()  };
+	bullet->SetPosition(pos.x, pos.y);
+	GetGameObject()->GetComponent<BulletManager>()->AddBullet(bullet);
+	
 }
 
 void dae::TankComponent::Rotate()
@@ -123,7 +145,7 @@ void dae::TankComponent::Rotate()
 bool dae::TankComponent::IsPointInRect(const glm::vec2& point, SDL_Rect otherRect)
 {
 	const auto objPos = GetGameObject()->GetLocalPosition();
-	SDL_Rect rect{ static_cast<int>(otherRect.x ), static_cast<int>(otherRect.y), otherRect.w,otherRect.h };
+	SDL_Rect rect{ static_cast<int>(otherRect.x), static_cast<int>(otherRect.y), otherRect.w,otherRect.h };
 	if (point.x >= rect.x && point.x <= rect.x + rect.w && point.y >= rect.y && point.y <= rect.y + rect.h)
 		return true;
 	return false;

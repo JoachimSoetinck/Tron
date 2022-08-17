@@ -18,6 +18,7 @@ namespace dae
 		std::shared_ptr<Scene> GetScene(int nr);
 		void SetActiveScene(Scene* scene);
 		int GetActiveSceneNr() const;
+		Scene* GetActiveScene() const { return m_pActiveScene; };
 		
 	private:
 		friend class Singleton<SceneManager>;

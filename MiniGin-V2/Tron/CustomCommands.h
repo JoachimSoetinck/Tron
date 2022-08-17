@@ -33,6 +33,25 @@ private:
 	dae::TankComponent::TankState m_state;
 };
 
+class AttackCommand final : public Command
+{
+public:
+	AttackCommand(dae::GameObject* gameObject) :Command(gameObject) {}
+	~AttackCommand() override = default;
+
+	AttackCommand(const AttackCommand& other) = delete;
+	AttackCommand(AttackCommand&& other) noexcept = delete;
+	AttackCommand& operator=(const AttackCommand& other) = delete;
+	AttackCommand& operator=(AttackCommand&& other) noexcept = delete;
+
+	void Execute() override
+	{
+		GetGameObject()->GetComponent<dae::TankComponent>()->SetState(dae::TankComponent::TankState::Attack);
+	}
+private:
+
+};
+
 
 
 
