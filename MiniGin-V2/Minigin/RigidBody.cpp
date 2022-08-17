@@ -10,6 +10,11 @@ dae::RigidBody::RigidBody(dae::GameObject* object, const glm::vec2& speed) :
 {
 }
 
+void dae::RigidBody::Render() const
+{
+
+}
+
 void dae::RigidBody::Move(const glm::vec2& direction)
 {
 	if(direction != glm::vec2{0,0})

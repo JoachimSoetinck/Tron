@@ -127,9 +127,9 @@ void dae::TankComponent::FixedUpdate()
 void dae::TankComponent::Attack() const
 {
 	const auto bullet{ std::make_shared<dae::GameObject>() };
-	bullet->AddComponent(new CollisionComponent(bullet.get(), 10));
 	bullet->AddComponent(new SpriteComponent(bullet.get(), Sprite("TronSprite.png", 1, 1, { 192,0,10,10 }), { 0,0,10,10 }));
 	bullet->AddComponent(new RigidBody(bullet.get()));
+	bullet->AddComponent(new CollisionComponent(bullet.get(), 10));
 	bullet->AddComponent(new BulletComponent(bullet.get(), m_lookDirection));
 
 	const auto pos{ GetGameObject()->GetLocalPosition()  };

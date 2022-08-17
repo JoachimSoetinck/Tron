@@ -18,7 +18,7 @@ namespace dae
 
 		void Update() override {};
 		void FixedUpdate() override {};
-		void Render() const override {};
+		void Render() const override;
 		void Move(const glm::vec2& moveVec);
 
 		glm::vec2 GetMovementSpeed() const { return m_MovementSpeed; }

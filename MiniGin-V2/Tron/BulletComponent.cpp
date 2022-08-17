@@ -1,6 +1,7 @@
 #include "BulletComponent.h"
 
 #include "GameObject.h"
+#include "Renderer.h"
 #include "RigidBody.h"
 
 BulletComponent::BulletComponent(dae::GameObject* object, const glm::vec2 direction):
@@ -15,6 +16,8 @@ m_pRigidBody{ GetGameObject()->GetComponent<dae::RigidBody>() }
 
 void BulletComponent::Render() const
 {
+
+
 }
 
 void BulletComponent::Update()
