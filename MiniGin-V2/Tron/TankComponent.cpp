@@ -172,8 +172,8 @@ void dae::TankComponent::Attack()
 	bullet->AddComponent(new CollisionComponent(bullet.get(), 10));
 	bullet->AddComponent(new BulletComponent(bullet.get(), m_lookDirection));
 
-	const auto pos{ GetGameObject()->GetLocalPosition() };
-	bullet->SetPosition(static_cast<float>(m_center.x), static_cast<float>(m_center.y - bullet->GetComponent<SpriteComponent>()->GetDestRect().h / 2));
+	const auto pos =  {static_cast<int>(m_center.x + m_lookDirection.x * 10), static_cast<int>(m_center.y + m_lookDirection.y * 10) };
+	bullet->SetPosition(static_cast<int>(m_center.x + m_lookDirection.x * 10), static_cast<int>(m_center.y + m_lookDirection.y * 10));
 	GetGameObject()->GetComponent<BulletManager>()->AddBullet(bullet);
 
 }

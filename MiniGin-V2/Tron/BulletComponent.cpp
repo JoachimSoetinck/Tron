@@ -6,6 +6,7 @@
 #include "RigidBody.h"
 #include "Scene.h"
 #include "SceneManager.h"
+#include "TankComponent.h"
 #include "WallComponent.h"
 
 BulletComponent::BulletComponent(dae::GameObject* object, const glm::vec2 direction) :
@@ -50,8 +51,21 @@ void BulletComponent::FixedUpdate()
 
 			}
 
+		}
+
+		if (object->GetComponent<dae::TankComponent>() && m_pGameObject->GetParent() != object->GetParent())
+		{
+			//bool isColliding = IsPointInRect(m_lookPoint, object->GetComponent<WallComponent>()->GetWallInfo());
+
+			if (m_pGameObject->GetComponent<CollisionComponent>()->IsOverlapping(object->GetComponent<CollisionComponent>()))
+			{
+				m_isDead = true;
+
+
+			}
 
 		}
+
 	}
 
 }

@@ -17,6 +17,7 @@
 #include "CustomCommands.h"
 #include "LevelParser.h"
 #include "LivesComponent.h"
+#include "ScoreComponent.h"
 #include "TankComponent.h"
 #include "WallComponent.h"
 
@@ -25,12 +26,6 @@ void TronGame::CreateLevel1(dae::Scene& scene2) const
 {
 	const auto tank1{ dae::InputManager::GetInstance().AddPlayer() };
 	const auto tank2{ dae::InputManager::GetInstance().AddPlayer(true) };
-
-
-	// -- Attack --
-	//dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonA, std::make_shared<FireCommand>(), tank1, dae::InputManager::EInputState::Down);
-	//dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_E, std::make_shared<FireCommand>(), tank1, dae::InputManager::EInputState::Down);
-
 
 
 	const auto Tank{ std::make_shared<dae::GameObject>() };
@@ -85,10 +80,26 @@ void TronGame::CreateLevel1(dae::Scene& scene2) const
 	lives->AddComponent(livesText);
 	auto livesObserver = new dae::LivesComponent(lives.get(), Tank->GetComponent<dae::TankComponent>(), livesText);
 	lives->AddComponent(livesObserver);
-
-	Tank->GetComponent<dae::TankComponent>()->AddObserver(livesObserver);
-
 	scene2.Add(lives);
+
+	const auto score{ std::make_shared<dae::GameObject>() };
+	auto scoreText = new dae::TextComponent(score.get(), "Score:", font);
+	scoreText->SetPosition({ 200,0 ,0});
+	score->AddComponent(scoreText);
+	auto ScoreObserver = new ScoreComponent(score.get(), Tank->GetComponent<dae::TankComponent>(), scoreText);
+	score->AddComponent(ScoreObserver);
+	Tank->GetComponent<dae::TankComponent>()->AddObserver(ScoreObserver);
+
+	
+	scene2.Add(score);
+}
+
+void TronGame::CreateLevel2(dae::Scene& ) const
+{
+}
+
+void TronGame::CreateLevel3(dae::Scene& ) const
+{
 }
 
 void TronGame::CreateStartScreen(dae::Scene& scene) const
@@ -156,14 +167,14 @@ void TronGame::LoadGame() const
 
 	dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(0).get());
 	bool r = dae::LevelParser::ParseOBJ("../Data/Level/Level01.txt", scene2, false);
-	 r = dae::LevelParser::ParseOBJ("../Data/Level/Level01.txt", scene3, false);
-	 r = dae::LevelParser::ParseOBJ("../Data/Level/Level01.txt", scene4, false);
+	 r = dae::LevelParser::ParseOBJ("../Data/Level/Level02.txt", scene3, false);
+	 r = dae::LevelParser::ParseOBJ("../Data/Level/Level03.txt", scene4, false);
 	 r = dae::LevelParser::ParseOBJ("../Data/Level/Level01.txt", scene5, false);
-	 r = dae::LevelParser::ParseOBJ("../Data/Level/Level01.txt", scene6, false);
-	 r = dae::LevelParser::ParseOBJ("../Data/Level/Level01.txt", scene7, false);
+	 r = dae::LevelParser::ParseOBJ("../Data/Level/Level02.txt", scene6, false);
+	 r = dae::LevelParser::ParseOBJ("../Data/Level/Level03.txt", scene7, false);
 	 r = dae::LevelParser::ParseOBJ("../Data/Level/Level01.txt", scene8, false);
-	 r = dae::LevelParser::ParseOBJ("../Data/Level/Level01.txt", scene9, false);
-	 r = dae::LevelParser::ParseOBJ("../Data/Level/Level01.txt", scene10, false);
+	 r = dae::LevelParser::ParseOBJ("../Data/Level/Level02.txt", scene9, false);
+	 r = dae::LevelParser::ParseOBJ("../Data/Level/Level03.txt", scene10, false);
 	 
 
 

@@ -41,6 +41,7 @@ namespace dae
 		dae::RigidBody* m_RigidBody;
 
 		int m_nrOfLives{ 3 };
+		int m_score{ 0 };
 
 		float m_TurretAngle{};
 		float m_RotationSpeed{ 40 };

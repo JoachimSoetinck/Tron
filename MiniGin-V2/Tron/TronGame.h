@@ -5,13 +5,15 @@
 class TronGame : public dae::Minigin
 {
 public:
-	void CreateLevel1(dae::Scene& scene2) const;
+	
 	void CreateStartScreen(dae::Scene& scene) const;
 	void LoadGame() const override;
 
 private:
-
-	void AddWall(dae::Scene& scene, SDL_Rect wall) const;
+	void CreateLevel1(dae::Scene& scene2) const;
+	void CreateLevel2(dae::Scene& scene2) const;
+	void CreateLevel3(dae::Scene& scene2) const;
+	
 
 };
 

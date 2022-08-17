@@ -17,9 +17,12 @@ void dae::LivesComponent::OnNotify( Event action)
 	switch (action)
 	{
 	case Event::Died:
+		{
 		SetLives();
 		break;
-	default:;
+		}
+	default:
+		break;
 	}
 
 }
