@@ -17,7 +17,7 @@ public:
 	void ClearBullets();
 
 	void Update() override;
-	void FixedUpdate() override {}
+	void FixedUpdate() override;
 	void Render() const override {}
 
 	std::vector<std::shared_ptr<dae::GameObject>> m_pBullets{};

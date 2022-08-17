@@ -39,3 +39,11 @@ void BulletManager::Update()
 		m_pBullets[i]->Update();
 	}
 }
+
+void BulletManager::FixedUpdate()
+{
+	for (size_t i = 0; i < m_pBullets.size(); ++i)
+	{
+		m_pBullets[i]->FixedUpdate();
+	}
+}
