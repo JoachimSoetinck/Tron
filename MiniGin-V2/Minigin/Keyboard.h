@@ -10,6 +10,7 @@ public:
 	~KeyBoard() override;
 
 	void Update() const override;
+	bool ProcessInput();
 
 	bool IsDown(SDL_Scancode code)const;
 	bool IsUp(SDL_Scancode code)const;

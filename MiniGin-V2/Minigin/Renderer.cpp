@@ -157,6 +157,11 @@ void dae::Renderer::DrawRectangle(const SDL_Rect& rect, SDL_Color color) const
 	SDL_RenderDrawRect(GetSDLRenderer(), &rect);
 }
 
+void dae::Renderer::DrawLine(int x1, int y1, int x2, int y2) const
+{
+	SDL_RenderDrawLine(GetSDLRenderer(), x1, y1,x2,y2);
+}
+
 void dae::Renderer::RenderPoint(const glm::vec2 point)
 {
 	SDL_SetRenderDrawColor(GetSDLRenderer(), 255, 255, 255, 1);

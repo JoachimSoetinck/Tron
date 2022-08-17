@@ -26,6 +26,7 @@ namespace dae
 		void RenderTexture(const Texture2D& texture, const SDL_Rect& srcRect, int x, int y) const;
 		void RenderRectangle(const SDL_Rect& rect, SDL_Color color = { 255,255,255,1 }) const;
 		void DrawRectangle(const SDL_Rect& rect, SDL_Color color = { 255,255,255,1 }) const;
+		void DrawLine(int x1, int y1, int x2, int y2)const;
 		void RenderPoint(const glm::vec2 point);
 
 		SDL_Renderer* GetSDLRenderer() const { return m_Renderer; }
