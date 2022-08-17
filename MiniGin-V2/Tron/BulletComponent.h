@@ -19,11 +19,17 @@ public:
 	void Render() const override;
 	void Update() override;
 	void FixedUpdate() override;
+	bool IsDead()const
+	{
+		return m_isDead;
+	};
 
 private:
 	glm::vec2 m_direction{1,0};
 	int m_NrOfBounces{ 0 };
 	const int m_maxNrOfBounces;
+
+	bool m_isDead = false;
 
 	dae::RigidBody* m_pRigidBody{};
 };

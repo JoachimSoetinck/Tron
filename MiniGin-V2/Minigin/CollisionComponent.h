@@ -4,6 +4,13 @@
 class CollisionComponent final: public dae::BaseComponent
 {
 public:
+	enum class Side {
+		Left,
+		Right,
+		Up,
+		Down
+	};
+
 	CollisionComponent(dae::GameObject* object, SDL_Rect rect);
 	CollisionComponent(dae::GameObject* object, int size);
 	~CollisionComponent() override;
@@ -18,11 +25,16 @@ public:
 	void Render() const override;
 
 	bool IsOverlapping(const CollisionComponent* collisionBox) const;
+	bool IsOverlapping(SDL_Rect collisionBox) const;
 
 
 	SDL_Rect GetCollisionBox() const { return m_CollisionBox; }
 
 	void SetCollisionBox(SDL_Rect col) { m_CollisionBox = col; }
+
+	Side SideDetection(const CollisionComponent* collisionBox) const;
+
+	SDL_Point GetCenter() const { return { m_CollisionBox.x + m_CollisionBox.w / 2, m_CollisionBox.y + m_CollisionBox.h / 2 }; }
 	
 private:
 	SDL_Rect m_CollisionBox{};

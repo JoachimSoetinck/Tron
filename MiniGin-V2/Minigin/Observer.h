@@ -14,7 +14,7 @@ namespace dae
 		Observer& operator=(const Observer& other) = delete;
 		Observer& operator=(Observer&& other) noexcept = delete;
 
-		virtual void OnNotify(const GameObject& pGameObject, Event event) = 0;
+		virtual void OnNotify( Event event) = 0;
 	};
 }
 

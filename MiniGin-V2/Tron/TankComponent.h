@@ -2,11 +2,12 @@
 #include "BaseComponent.h"
 #include "RigidBody.h"
 #include "SpriteComponent.h"
+#include "Subject.h"
 
 
 namespace dae
 {
-	class TankComponent final: public dae::BaseComponent
+	class TankComponent final: public dae::BaseComponent, public Subject
 	{
 	public:
 		enum class TankState
@@ -15,8 +16,7 @@ namespace dae
 		};
 
 		
-		void SetState(TankState state);
-
+		
 		TankComponent(GameObject* gameObject);
 		~TankComponent() override = default;
 		TankComponent(const TankComponent& other) = delete;
@@ -28,6 +28,8 @@ namespace dae
 		void Render() const override;
 		void FixedUpdate() override;
 
+		void SetState(TankState state);
+		int GetLives() const { return m_nrOfLives; };
 		void Rotate();
 
 
@@ -38,6 +40,8 @@ namespace dae
 		glm::ivec2 m_lookPoint{0,0};
 		dae::RigidBody* m_RigidBody;
 
+		int m_nrOfLives{ 3 };
+
 		float m_TurretAngle{};
 		float m_RotationSpeed{ 40 };
 
@@ -46,9 +50,12 @@ namespace dae
 
 		SpriteComponent* m_pSprite{};
 
-		void Attack() const;
+		void Attack();
+		void LoseLive();
 		
-		int AbsAngleDegrees(float angle);
+		float m_attackCoolDown{2.0f};
+		float elapsedSec{ 0.0f };
+		bool m_hasAttacked{false};
 
 		bool IsPointInRect(const glm::vec2& point, SDL_Rect rect);
 

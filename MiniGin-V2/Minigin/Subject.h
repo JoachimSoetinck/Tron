@@ -14,8 +14,8 @@ namespace dae
 	public:
 		Subject() = default;
 		virtual ~Subject();
-		void AddObserver(std::shared_ptr<Observer>);
-		void RemoveObserver(std::shared_ptr<Observer>);
+		void AddObserver(Observer* o);
+		void RemoveObserver(Observer* o);
 		void Notify(Event eventType, GameObject& object);
 
 		template <class T>
@@ -31,11 +31,11 @@ namespace dae
 		}
 
 		
-		void NotifyAllObservers(const GameObject& entity, Event event);
+		void NotifyAllObservers(  Event event);
 
 
 	private:
-		std::vector<std::shared_ptr<Observer>> m_pObservers;
+		std::vector<Observer*> m_pObservers;
 	};
 }
 

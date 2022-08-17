@@ -68,9 +68,13 @@ void dae::TankComponent::SetState(TankState state)
 	}
 	case TankState::Attack:
 	{
-		Attack();
-		m_direction = { 0,0 };
-		SetState(TankState::idle);
+		if (m_hasAttacked == false)
+		{
+			Attack();
+			m_direction = { 0,0 };
+			SetState(TankState::idle);
+		}
+
 		break;
 	}
 	default:
@@ -90,8 +94,18 @@ dae::TankComponent::TankComponent(GameObject* gameObject) :
 
 void dae::TankComponent::Update()
 {
+	if(m_hasAttacked)
+	{
+		elapsedSec += dae::Time::GetInstance().GetDeltaTime();
 
-	if(m_lookDirection.x >= 1.0f || m_lookDirection.x <= -1.0f )
+		if(elapsedSec >= m_attackCoolDown)
+		{
+			m_hasAttacked = false;
+			elapsedSec = 0.0f;
+		}
+	}
+
+	if (m_lookDirection.x >= 1.0f || m_lookDirection.x <= -1.0f)
 	{
 		m_turnSpeedX *= -1;
 	}
@@ -148,8 +162,10 @@ void dae::TankComponent::FixedUpdate()
 
 
 
-void dae::TankComponent::Attack() const
+void dae::TankComponent::Attack()
 {
+	m_hasAttacked = true;
+
 	const auto bullet{ std::make_shared<dae::GameObject>() };
 	bullet->AddComponent(new SpriteComponent(bullet.get(), Sprite("TronSprite.png", 1, 1, { 192,0,10,10 }), { 0,0,10,10 }));
 	bullet->AddComponent(new RigidBody(bullet.get()));
@@ -157,15 +173,21 @@ void dae::TankComponent::Attack() const
 	bullet->AddComponent(new BulletComponent(bullet.get(), m_lookDirection));
 
 	const auto pos{ GetGameObject()->GetLocalPosition() };
-	bullet->SetPosition(m_center.x , m_center.y - bullet->GetComponent<SpriteComponent>()->GetDestRect().h/2);
+	bullet->SetPosition(m_center.x, m_center.y - bullet->GetComponent<SpriteComponent>()->GetDestRect().h / 2);
 	GetGameObject()->GetComponent<BulletManager>()->AddBullet(bullet);
 
+}
+
+void dae::TankComponent::LoseLive()
+{
+	--m_nrOfLives;
+	NotifyAllObservers(Event::Died);
 }
 
 void dae::TankComponent::Rotate()
 {
 
-	
+
 
 
 }

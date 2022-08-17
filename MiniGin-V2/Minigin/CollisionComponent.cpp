@@ -50,6 +50,26 @@ bool CollisionComponent::IsOverlapping(const CollisionComponent* collision2) con
     
 }
 
+bool CollisionComponent::IsOverlapping(SDL_Rect collisionBox) const
+{
+    const auto objPos = GetGameObject()->GetLocalPosition();
+    const SDL_Rect collisionBoxOne{ static_cast<int>(m_CollisionBox.x + objPos.x),static_cast<int>(m_CollisionBox.y + objPos.y),m_CollisionBox.w,m_CollisionBox.h };
+
+
+    
+    const SDL_Rect other = collisionBox;
+    const SDL_Rect otherColPos{ static_cast<int>(other.x + other.w),static_cast<int>(other.y + other.h),other.w,other.h };
+
+    const SDL_Point l1{ otherColPos.x,otherColPos.y + otherColPos.h }, r1{ otherColPos.x + otherColPos.w, otherColPos.y };
+
+    const SDL_Point l2{ collisionBoxOne.x,collisionBoxOne.y + collisionBoxOne.h }, r2{ collisionBoxOne.x + collisionBoxOne.w, collisionBoxOne.y };
+
+
+ 
+
+    return !(l1.x >= r2.x || l2.x >= r1.x || l1.y <= r2.y || l2.y <= r1.y);
+}
+
 
 
 
@@ -62,6 +82,11 @@ m_CollisionBox{rect}
 CollisionComponent::CollisionComponent(dae::GameObject* object, int size) : BaseComponent(object)
 , m_CollisionBox({ 0, 0,size,size })
 {
+}
+
+CollisionComponent::Side CollisionComponent::SideDetection(const CollisionComponent* ) const
+{
+    return Side::Right;
 }
 
 CollisionComponent::~CollisionComponent()

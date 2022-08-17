@@ -1,5 +1,6 @@
 #include "BulletManager.h"
 
+#include "BulletComponent.h"
 #include "Scene.h"
 #include "SceneManager.h"
 
@@ -15,10 +16,12 @@ void BulletManager::RemoveBullet(const std::shared_ptr<dae::GameObject>& bullet)
 	if (m_pBullets.empty())
 		return;
 
+	
+	m_pBullets.erase(std::remove(m_pBullets.begin(), m_pBullets.end(), bullet));
 	auto scene = dae::SceneManager::GetInstance().GetActiveScene();
 	scene->Remove(bullet);
-
-	m_pBullets.erase(std::remove(m_pBullets.begin(), m_pBullets.end(), bullet));
+	
+	
 }
 
 void BulletManager::ClearBullets()
@@ -36,14 +39,16 @@ void BulletManager::Update()
 {
 	for (size_t i = 0; i < m_pBullets.size(); ++i)
 	{
-		m_pBullets[i]->Update();
+
+		if (m_pBullets[i]->GetComponent<BulletComponent>()->IsDead())
+		{
+			RemoveBullet(m_pBullets[i]);
+			
+		}
 	}
 }
 
 void BulletManager::FixedUpdate()
 {
-	for (size_t i = 0; i < m_pBullets.size(); ++i)
-	{
-		m_pBullets[i]->FixedUpdate();
-	}
+	
 }

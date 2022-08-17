@@ -6,15 +6,15 @@
 
 dae::Subject::~Subject()
 {
-	
+
 }
 
-void dae::Subject::AddObserver(std::shared_ptr<Observer> observer)
+void dae::Subject::AddObserver(Observer* observer)
 {
 	m_pObservers.push_back(observer);
 }
 
-void dae::Subject::RemoveObserver(std::shared_ptr<Observer> observer)
+void dae::Subject::RemoveObserver(Observer* observer)
 {
 	for (size_t i = 0; i < m_pObservers.size(); ++i) {
 
@@ -24,18 +24,18 @@ void dae::Subject::RemoveObserver(std::shared_ptr<Observer> observer)
 	}
 }
 
-void dae::Subject::Notify(Event eventType, GameObject& object)
+void dae::Subject::Notify(Event eventType, GameObject& )
 {
 	for (const auto observer : m_pObservers) {
-		observer->OnNotify(object, eventType);
+		observer->OnNotify( eventType);
 	}
 }
 
-void dae::Subject::NotifyAllObservers(const GameObject& entity, Event event)
+void dae::Subject::NotifyAllObservers( Event event)
 {
 	for (const auto& observer : m_pObservers)
 	{
-		observer->OnNotify(entity, event);
+		observer->OnNotify(event);
 	}
 }
 

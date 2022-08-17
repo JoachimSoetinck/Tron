@@ -162,6 +162,8 @@
     <ClCompile Include="BulletComponent.cpp" />
     <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="CustomCommands.cpp" />
+    <ClCompile Include="LevelParser.cpp" />
+    <ClCompile Include="LivesComponent.cpp" />
     <ClCompile Include="TankComponent.cpp" />
     <ClCompile Include="Tron.cpp" />
     <ClCompile Include="TronGame.cpp" />
@@ -171,6 +173,8 @@
     <ClInclude Include="BulletComponent.h" />
     <ClInclude Include="BulletManager.h" />
     <ClInclude Include="CustomCommands.h" />
+    <ClInclude Include="LevelParser.h" />
+    <ClInclude Include="LivesComponent.h" />
     <ClInclude Include="TankComponent.h" />
     <ClInclude Include="TronGame.h" />
     <ClInclude Include="WallComponent.h" />
