@@ -30,8 +30,8 @@ void dae::TankComponent::SetState(TankState state)
 		//m_lookDirection = { -1,0 };
 
 		spriteComp->SetRotation(270);
-		m_lookPoint.x = GetGameObject()->GetLocalPosition().x;
-		m_lookPoint.y = GetGameObject()->GetLocalPosition().y + spriteComp->GetDestRect().h / 2;
+		m_lookPoint.x = static_cast<int>(GetGameObject()->GetLocalPosition().x);
+		m_lookPoint.y = static_cast<int>(GetGameObject()->GetLocalPosition().y + spriteComp->GetDestRect().h / 2);
 
 		break;
 	}
@@ -40,8 +40,8 @@ void dae::TankComponent::SetState(TankState state)
 	{
 		m_direction = { 1,0 };
 		//m_lookDirection = { 1,0 };
-		m_lookPoint.x = GetGameObject()->GetLocalPosition().x + spriteComp->GetDestRect().w;
-		m_lookPoint.y = GetGameObject()->GetLocalPosition().y + spriteComp->GetDestRect().h / 2;
+		m_lookPoint.x = static_cast<int>(GetGameObject()->GetLocalPosition().x + spriteComp->GetDestRect().w);
+		m_lookPoint.y = static_cast<int>(GetGameObject()->GetLocalPosition().y + spriteComp->GetDestRect().h / 2);
 		spriteComp->SetRotation(90);
 		break;
 	}
@@ -50,8 +50,8 @@ void dae::TankComponent::SetState(TankState state)
 	{
 		m_direction = { 0,-1 };
 		//m_lookDirection = { 0,-1 };
-		m_lookPoint.x = GetGameObject()->GetLocalPosition().x + spriteComp->GetDestRect().w / 2;
-		m_lookPoint.y = GetGameObject()->GetLocalPosition().y;
+		m_lookPoint.x = static_cast<int>(GetGameObject()->GetLocalPosition().x + spriteComp->GetDestRect().w / 2);
+		m_lookPoint.y = static_cast<int>(GetGameObject()->GetLocalPosition().y);
 		spriteComp->SetRotation(0);
 		break;
 	}
@@ -60,8 +60,8 @@ void dae::TankComponent::SetState(TankState state)
 	{
 		m_direction = { 0,1 };
 		//m_lookDirection = { 0,-1 };
-		m_lookPoint.x = GetGameObject()->GetLocalPosition().x + spriteComp->GetDestRect().w / 2;
-		m_lookPoint.y = GetGameObject()->GetLocalPosition().y + spriteComp->GetDestRect().h;
+		m_lookPoint.x = static_cast<int>(GetGameObject()->GetLocalPosition().x + spriteComp->GetDestRect().w / 2);
+		m_lookPoint.y = static_cast<int>(GetGameObject()->GetLocalPosition().y + spriteComp->GetDestRect().h);
 		spriteComp->SetRotation(180);
 
 		break;
@@ -126,7 +126,7 @@ void dae::TankComponent::Render() const
 	dae::Renderer::GetInstance().RenderPoint(m_lookPoint);
 
 
-	dae::Renderer::GetInstance().DrawLine(m_center.x, m_center.y, m_center.x + m_lookDirection.x * 10, m_center.y + m_lookDirection.y * 10);
+	dae::Renderer::GetInstance().DrawLine(m_center.x, m_center.y, static_cast<int>(m_center.x + m_lookDirection.x * 10), static_cast<int>(m_center.y + m_lookDirection.y * 10));
 }
 
 void dae::TankComponent::FixedUpdate()
@@ -173,7 +173,7 @@ void dae::TankComponent::Attack()
 	bullet->AddComponent(new BulletComponent(bullet.get(), m_lookDirection));
 
 	const auto pos{ GetGameObject()->GetLocalPosition() };
-	bullet->SetPosition(m_center.x, m_center.y - bullet->GetComponent<SpriteComponent>()->GetDestRect().h / 2);
+	bullet->SetPosition(static_cast<float>(m_center.x), static_cast<float>(m_center.y - bullet->GetComponent<SpriteComponent>()->GetDestRect().h / 2));
 	GetGameObject()->GetComponent<BulletManager>()->AddBullet(bullet);
 
 }

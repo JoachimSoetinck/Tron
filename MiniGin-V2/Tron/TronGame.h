@@ -6,6 +6,7 @@ class TronGame : public dae::Minigin
 {
 public:
 	void CreateLevel1(dae::Scene& scene2) const;
+	void CreateStartScreen(dae::Scene& scene) const;
 	void LoadGame() const override;
 
 private:

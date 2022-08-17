@@ -2,8 +2,8 @@
 /// @file glm/detail/type_vec3.hpp
 
 #pragma once
-#pragma warning(push, disable: 4201)
 #include "type_vec.hpp"
+#pragma warning(push)
 #if GLM_SWIZZLE == GLM_SWIZZLE_ENABLED
 #	if GLM_HAS_UNRESTRICTED_UNIONS
 #		include "_swizzle.hpp"
@@ -44,6 +44,7 @@ namespace glm
 
 			union
 			{
+
 				struct{ T x, y, z; };
 				struct{ T r, g, b; };
 				struct{ T s, t, p; };

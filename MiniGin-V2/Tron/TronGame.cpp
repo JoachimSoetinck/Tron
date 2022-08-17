@@ -91,6 +91,54 @@ void TronGame::CreateLevel1(dae::Scene& scene2) const
 	scene2.Add(lives);
 }
 
+void TronGame::CreateStartScreen(dae::Scene& scene) const
+{
+	auto font = dae::ResourceManager::GetInstance().LoadFont("BurgerTimeFont.otf", 20);
+
+	const auto startScreen = std::make_shared<dae::GameObject>();
+	SDL_Rect src{ 0,0,500,500 };
+	startScreen->AddComponent(new SpriteComponent(startScreen.get(), Sprite("tron.png", 1, 1, src), { 100,50,500,500 }));
+
+	scene.Add(startScreen);
+
+	const auto button = std::make_shared<dae::GameObject>();
+	auto textComponent = new dae::TextComponent(button.get(), "Single Player", font);
+	textComponent->SetPosition({ 300, 550,0 });
+	button->AddComponent(textComponent);
+	button->AddComponent(new dae::ButtonComponent(button.get(), textComponent));
+	button->GetComponent<dae::ButtonComponent>()->SetFunction([]
+	{
+		dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(1).get());
+	});
+	scene.Add(button);
+
+	auto button2 = std::make_shared<dae::GameObject>();
+	textComponent = new dae::TextComponent(button2.get(), "COOP", font);
+	textComponent->SetPosition({ 300, 580,0 });
+	button2->AddComponent(textComponent);
+	button2->AddComponent(new dae::ButtonComponent(button2.get(), textComponent));
+	button2->GetComponent<dae::ButtonComponent>()->SetFunction([]
+	{
+		dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(4).get());
+	});
+
+	auto button3 = std::make_shared<dae::GameObject>();
+	textComponent = new dae::TextComponent(button2.get(), "VERSUS", font);
+	textComponent->SetPosition({ 300, 610,0 });
+	button3->AddComponent(textComponent);
+	button3->AddComponent(new dae::ButtonComponent(button2.get(), textComponent));
+	button3->GetComponent<dae::ButtonComponent>()->SetFunction([]
+	{
+		dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(7).get());
+	});
+
+
+
+	scene.Add(button);
+	scene.Add(button2);
+	scene.Add(button3);
+}
+
 void TronGame::LoadGame() const
 {
 
@@ -108,52 +156,19 @@ void TronGame::LoadGame() const
 
 	dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(0).get());
 	bool r = dae::LevelParser::ParseOBJ("../Data/Level/Level01.txt", scene2, false);
-
-
-	auto font = dae::ResourceManager::GetInstance().LoadFont("BurgerTimeFont.otf", 20);
-
-	const auto startScreen = std::make_shared<dae::GameObject>();
-	SDL_Rect src{ 0,0,500,500 };
-	startScreen->AddComponent(new SpriteComponent(startScreen.get(), Sprite("tron.png", 1, 1, src), { 100,50,500,500 }));
-
-	scene.Add(startScreen);
-
-	const auto button = std::make_shared<dae::GameObject>();
-	auto textComponent = new dae::TextComponent(button.get(), "Single Player", font);
-	textComponent->SetPosition({ 300, 550,0 });
-	button->AddComponent(textComponent);
-	button->AddComponent(new dae::ButtonComponent(button.get(), textComponent));
-	button->GetComponent<dae::ButtonComponent>()->SetFunction([]
-		{
-			dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(1).get());
-		});
-	scene.Add(button);
-
-	auto button2 = std::make_shared<dae::GameObject>();
-	textComponent = new dae::TextComponent(button2.get(), "COOP", font);
-	textComponent->SetPosition({ 300, 580,0 });
-	button2->AddComponent(textComponent);
-	button2->AddComponent(new dae::ButtonComponent(button2.get(), textComponent));
-	button2->GetComponent<dae::ButtonComponent>()->SetFunction([]
-		{
-			dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(2).get());
-		});
-
-	auto button3 = std::make_shared<dae::GameObject>();
-	textComponent = new dae::TextComponent(button2.get(), "VERSUS", font);
-	textComponent->SetPosition({ 300, 610,0 });
-	button3->AddComponent(textComponent);
-	button3->AddComponent(new dae::ButtonComponent(button2.get(), textComponent));
-	button3->GetComponent<dae::ButtonComponent>()->SetFunction([]
-		{
-			dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(2).get());
-		});
+	 r = dae::LevelParser::ParseOBJ("../Data/Level/Level01.txt", scene3, false);
+	 r = dae::LevelParser::ParseOBJ("../Data/Level/Level01.txt", scene4, false);
+	 r = dae::LevelParser::ParseOBJ("../Data/Level/Level01.txt", scene5, false);
+	 r = dae::LevelParser::ParseOBJ("../Data/Level/Level01.txt", scene6, false);
+	 r = dae::LevelParser::ParseOBJ("../Data/Level/Level01.txt", scene7, false);
+	 r = dae::LevelParser::ParseOBJ("../Data/Level/Level01.txt", scene8, false);
+	 r = dae::LevelParser::ParseOBJ("../Data/Level/Level01.txt", scene9, false);
+	 r = dae::LevelParser::ParseOBJ("../Data/Level/Level01.txt", scene10, false);
+	 
 
 
 
-	scene.Add(button);
-	scene.Add(button2);
-
+	CreateStartScreen(scene);
 
 	CreateLevel1(scene2);
 

@@ -17,7 +17,7 @@ namespace dae
 	{
 	public:
 		
-		static bool ParseOBJ(const std::string& filename, Scene& scene, bool isCoop)
+		static bool ParseOBJ(const std::string& filename, Scene& scene, bool )
 		{
 			std::ifstream file(filename);
 			if (!file)

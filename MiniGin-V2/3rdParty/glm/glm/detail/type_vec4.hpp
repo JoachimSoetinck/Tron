@@ -3,6 +3,7 @@
 
 #pragma once
 #pragma warning(suppress: 4201)
+#pragma warning( disable : 4201 )
 #include "type_vec.hpp"
 #if GLM_SWIZZLE == GLM_SWIZZLE_ENABLED
 #	if GLM_HAS_UNRESTRICTED_UNIONS
