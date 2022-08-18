@@ -114,8 +114,7 @@ void TronGame::CreateScoreText(dae::Scene& scene2, std::shared_ptr<dae::GameObje
 
 void TronGame::CreateLevel1(dae::Scene& scene2, bool isCoop, bool  isVersus) const
 {
-	const auto tank1{ dae::InputManager::GetInstance().AddPlayer() };
-	const auto tank2{ dae::InputManager::GetInstance().AddPlayer(true) };
+
 
 	const auto Tank{ std::make_shared<dae::GameObject>() };
 
@@ -139,7 +138,24 @@ void TronGame::CreateLevel1(dae::Scene& scene2, bool isCoop, bool  isVersus) con
 	Tank2->SetPosition(300, 300);
 
 
+
+
 	HandleInputPlayer(Tank, 0);
+
+	if (isCoop)
+	{
+
+		const auto Tank3{ std::make_shared<dae::GameObject>() };
+		SDL_Rect src2{ 256,0,32,32 };
+		Tank3->AddComponent(new SpriteComponent(Tank3.get(), Sprite("TronSprite.png", 1, 1, src2), { 0,0,25,25 }));
+		Tank3->AddComponent(new dae::RigidBody(Tank3.get()));
+		Tank3->AddComponent(new CollisionComponent(Tank3.get(), 25));
+		Tank3->AddComponent(new dae::TankComponent(Tank3.get()));
+		Tank3->AddComponent(new BulletManager(Tank3.get()));
+		Tank3->SetPosition(300, 100);
+		scene2.Add(Tank3);
+		HandleInputPlayer(Tank3, 1);
+	}
 
 	if (isVersus)
 	{
@@ -395,7 +411,10 @@ void TronGame::CreateStartScreen(dae::Scene& scene) const
 
 void TronGame::LoadGame() const
 {
-
+	const auto p1{ dae::InputManager::GetInstance().AddPlayer() };
+	const auto p2{ dae::InputManager::GetInstance().AddPlayer() };
+	const auto p1K{ dae::InputManager::GetInstance().AddPlayer(true) };
+	const auto p2K{ dae::InputManager::GetInstance().AddPlayer(true) };
 
 	auto& scene = dae::SceneManager::GetInstance().CreateScene("Demo");
 	auto& scene2 = dae::SceneManager::GetInstance().CreateScene("Level1");
@@ -423,7 +442,6 @@ void TronGame::LoadGame() const
 
 
 	CreateStartScreen(scene);
-
 
 	CreateLevel2(scene3);
 	CreateLevel3(scene4);
