@@ -18,6 +18,7 @@
 #include "LevelParser.h"
 #include "LivesComponent.h"
 #include "ScoreComponent.h"
+#include "ServiceLocator.h"
 #include "TankComponent.h"
 #include "WallComponent.h"
 
@@ -262,8 +263,10 @@ void TronGame::CreateLevel3(dae::Scene& scene2) const
 
 void TronGame::CreateStartScreen(dae::Scene& scene) const
 {
+	dae::ServiceLocator::GetSoundSystem().RegisterSound("../Data/Sound/1.wav");
+	
 	auto font = dae::ResourceManager::GetInstance().LoadFont("BurgerTimeFont.otf", 20);
-
+	;
 	const auto startScreen = std::make_shared<dae::GameObject>();
 	SDL_Rect src{ 0,0,500,500 };
 	startScreen->AddComponent(new SpriteComponent(startScreen.get(), Sprite("tron.png", 1, 1, src), { 100,50,500,500 }));

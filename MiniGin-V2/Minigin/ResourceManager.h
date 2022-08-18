@@ -12,7 +12,8 @@ namespace dae
 		void Init(const std::string& data);
 		Texture2D* LoadTexture(const std::string& file);
 		std::shared_ptr<Font> LoadFont(const std::string& file, unsigned int size) const;
-		//std::shared_ptr<Sound> LoadSound(const std::string& file) const;
+
+		std::string GetPath() const { return m_DataPath; }
 	private:
 		friend class Singleton<ResourceManager>;
 		ResourceManager() = default;

@@ -16,7 +16,7 @@
 #include "FPSComponent.h"
 #include "Command.h"
 #include "Observer.h"
-
+#include "ServiceLocator.h"
 
 
 #include "Timer.h"
@@ -62,6 +62,7 @@ void dae::Minigin::Initialize()
 	Renderer::GetInstance().Init(m_Window);
 
 	
+	ServiceLocator::RegisterSoundSystem(new SoundSystem());
 
 }
 
@@ -77,7 +78,7 @@ void dae::Minigin::LoadGame() const
 
 void dae::Minigin::Cleanup()
 {
-
+	ServiceLocator::RegisterSoundSystem(nullptr);
 	
 	Renderer::GetInstance().Destroy();
 	

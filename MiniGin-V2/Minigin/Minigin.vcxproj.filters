@@ -144,7 +144,13 @@
     <ClInclude Include="ButtonComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="SoundService.h">
+    <ClInclude Include="SoundSystem.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="ServiceLocator.h">
       <Filter>Sound</Filter>
     </ClInclude>
   </ItemGroup>
@@ -254,7 +260,13 @@
     <ClCompile Include="ButtonComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="SoundService.cpp">
+    <ClCompile Include="SoundSystem.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="ServiceLocator.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
   </ItemGroup>
