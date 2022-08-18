@@ -144,6 +144,9 @@
     <ClInclude Include="ButtonComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="SoundService.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -250,6 +253,9 @@
     </ClCompile>
     <ClCompile Include="ButtonComponent.cpp">
       <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundService.cpp">
+      <Filter>Sound</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
