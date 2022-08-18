@@ -165,9 +165,8 @@ void dae::TankComponent::Attack()
 	bullet->AddComponent(new RigidBody(bullet.get()));
 	bullet->AddComponent(new CollisionComponent(bullet.get(), 10));
 	bullet->AddComponent(new BulletComponent(bullet.get(), m_lookDirection, this->GetGameObject()));
-
-
-	bullet->SetPosition(static_cast<int>(m_center.x + m_lookDirection.x * 26), static_cast<int>(m_center.y + m_lookDirection.y * 26));
+	bullet->SetPosition(static_cast<int>(m_center.x + m_lookDirection.x * 25), static_cast<int>(m_center.y + m_lookDirection.y * 25));
+	if(GetGameObject()->GetComponent<BulletManager>()!= nullptr)
 	GetGameObject()->GetComponent<BulletManager>()->AddBullet(bullet);
 
 }

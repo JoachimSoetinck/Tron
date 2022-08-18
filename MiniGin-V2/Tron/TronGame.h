@@ -10,11 +10,11 @@ public:
 	void LoadGame() const override;
 
 private:
-	void CreateLevel1(dae::Scene& scene2) const;
+	void HandleInputPlayer(std::shared_ptr<dae::GameObject> Tank, int tank1) const;
+	void CreateLevel1(dae::Scene& scene2, bool isCoop, bool  isVersus) const;
 	void CreateLevel2(dae::Scene& scene2) const;
-	void AddControlsTank(std::shared_ptr<dae::GameObject> Tank, int tank1) const;
 	void CreateLevel3(dae::Scene& scene2) const;
-	
+
 
 };
 

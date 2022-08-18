@@ -23,12 +23,75 @@
 #include "WallComponent.h"
 
 
-void TronGame::CreateLevel1(dae::Scene& scene2) const
+void TronGame::HandleInputPlayer(const std::shared_ptr<dae::GameObject> Tank, const int tank1) const
+{
+	switch (tank1)
+	{
+	case 0:
+		{
+		dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADLeft, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Left), tank1, dae::InputManager::EInputState::Pressed);
+		dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADRight, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Right), tank1, dae::InputManager::EInputState::Pressed);
+		dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADUp, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Up), tank1, dae::InputManager::EInputState::Pressed);
+		dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADDown, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Down), tank1, dae::InputManager::EInputState::Pressed);
+		dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADLeft, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
+		dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADRight, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
+		dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADUp, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
+		dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADDown, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
+		dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonRightShoulder, std::make_shared<RotateCommand>(Tank.get(), true, true), tank1, dae::InputManager::EInputState::Down);
+		dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonRightShoulder, std::make_shared<RotateCommand>(Tank.get(), false, false), tank1, dae::InputManager::EInputState::Up);
+		dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonLeftShoulder, std::make_shared<RotateCommand>(Tank.get(), true, false), tank1, dae::InputManager::EInputState::Down);
+		dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonLeftShoulder, std::make_shared<RotateCommand>(Tank.get(), false, false), tank1, dae::InputManager::EInputState::Up);
+		dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonA, std::make_shared<AttackCommand>(Tank.get()), tank1, dae::InputManager::EInputState::Pressed);
+
+		dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_A, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Left), tank1, dae::InputManager::EInputState::Down);
+		dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_D, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Right), tank1, dae::InputManager::EInputState::Down);
+		dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_W, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Up), tank1, dae::InputManager::EInputState::Down);
+		dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_S, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Down), tank1, dae::InputManager::EInputState::Down);
+		dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_SPACE, std::make_shared<AttackCommand>(Tank.get()), tank1, dae::InputManager::EInputState::Pressed);
+		dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_A, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
+		dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_D, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
+		dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_W, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
+		dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_S, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
+		dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_E, std::make_shared<RotateCommand>(Tank.get(), true, false), tank1, dae::InputManager::EInputState::Down);
+		dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_R, std::make_shared<RotateCommand>(Tank.get(), true, true), tank1, dae::InputManager::EInputState::Down);
+		break;
+		}
+	case 1:
+		{
+		dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADLeft, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Left), tank1, dae::InputManager::EInputState::Pressed);
+		dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADRight, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Right), tank1, dae::InputManager::EInputState::Pressed);
+		dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADUp, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Up), tank1, dae::InputManager::EInputState::Pressed);
+		dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADDown, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Down), tank1, dae::InputManager::EInputState::Pressed);
+		dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADLeft, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
+		dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADRight, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
+		dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADUp, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
+		dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADDown, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
+		dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonRightShoulder, std::make_shared<RotateCommand>(Tank.get(), true, true), tank1, dae::InputManager::EInputState::Down);
+		dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonRightShoulder, std::make_shared<RotateCommand>(Tank.get(), false, false), tank1, dae::InputManager::EInputState::Up);
+		dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonLeftShoulder, std::make_shared<RotateCommand>(Tank.get(), true, false), tank1, dae::InputManager::EInputState::Down);
+		dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonLeftShoulder, std::make_shared<RotateCommand>(Tank.get(), false, false), tank1, dae::InputManager::EInputState::Up);
+		dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonA, std::make_shared<AttackCommand>(Tank.get()), tank1, dae::InputManager::EInputState::Pressed);
+
+		dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_LEFT, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Left), tank1, dae::InputManager::EInputState::Down);
+		dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_RIGHT, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Right), tank1, dae::InputManager::EInputState::Down);
+		dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_UP, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Up), tank1, dae::InputManager::EInputState::Down);
+		dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_DOWN, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Down), tank1, dae::InputManager::EInputState::Down);
+		dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_P, std::make_shared<AttackCommand>(Tank.get()), tank1, dae::InputManager::EInputState::Pressed);
+		dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_LEFT, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
+		dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_RIGHT, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
+		dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_UP, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
+		dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_DOWN, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
+		dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_I, std::make_shared<RotateCommand>(Tank.get(), true, false), tank1, dae::InputManager::EInputState::Down);
+		dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_O, std::make_shared<RotateCommand>(Tank.get(), true, true), tank1, dae::InputManager::EInputState::Down);
+		}
+	}
+
+}
+
+void TronGame::CreateLevel1(dae::Scene& scene2, bool isCoop,bool  isVersus) const
 {
 	const auto tank1{ dae::InputManager::GetInstance().AddPlayer() };
 	const auto tank2{ dae::InputManager::GetInstance().AddPlayer(true) };
-
-	
 
 	const auto Tank{ std::make_shared<dae::GameObject>() };
 
@@ -48,47 +111,16 @@ void TronGame::CreateLevel1(dae::Scene& scene2) const
 	Tank2->AddComponent(new dae::RigidBody(Tank2.get()));
 	Tank2->AddComponent(new CollisionComponent(Tank2.get(), 25));
 	Tank2->AddComponent(new dae::TankComponent(Tank2.get()));
-
+	Tank2->AddComponent(new BulletManager(Tank2.get()));
 	Tank2->SetPosition(300, 300);
 
 
+	HandleInputPlayer(Tank, 0);
 
-	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADLeft, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Left), tank1, dae::InputManager::EInputState::Pressed);
-	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADRight, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Right), tank1, dae::InputManager::EInputState::Pressed);
-	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADUp, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Up), tank1, dae::InputManager::EInputState::Pressed);
-	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADDown, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Down), tank1, dae::InputManager::EInputState::Pressed);
-
-
-	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADLeft, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
-	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADRight, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
-	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADUp, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
-	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADDown, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
-
-	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonRightShoulder, std::make_shared<RotateCommand>(Tank.get(), true,true), tank1, dae::InputManager::EInputState::Down);
-	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonRightShoulder, std::make_shared<RotateCommand>(Tank.get(),false, false), tank1, dae::InputManager::EInputState::Up);
-
-	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonLeftShoulder, std::make_shared<RotateCommand>(Tank.get(), true, false), tank1, dae::InputManager::EInputState::Down);
-	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonLeftShoulder, std::make_shared<RotateCommand>(Tank.get(), false, false), tank1, dae::InputManager::EInputState::Up);
-	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonA, std::make_shared<AttackCommand>(Tank.get()), tank1, dae::InputManager::EInputState::Pressed);
-
-
-
-	//dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_A, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Left), tank1, dae::InputManager::EInputState::Down);
-	//dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_D, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Right), tank1, dae::InputManager::EInputState::Down);
-	//dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_W, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Up), tank1, dae::InputManager::EInputState::Down);
-	//dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_S, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Down), tank1, dae::InputManager::EInputState::Down);
-	//dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_SPACE, std::make_shared<AttackCommand>(Tank.get()), tank1, dae::InputManager::EInputState::Pressed);
-	//
-	//dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_A, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
-	//dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_D, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
-	//dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_W, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
-	//dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_S, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
-	//
-	//
-	//dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_E, std::make_shared<RotateCommand>(Tank.get(), true,false), tank1, dae::InputManager::EInputState::Down);
-	//dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_R, std::make_shared<RotateCommand>(Tank.get(),true, true), tank1, dae::InputManager::EInputState::Down);
-
-
+	if(isVersus)
+	{
+		HandleInputPlayer(Tank2, 1);
+	}
 
 	auto font = dae::ResourceManager::GetInstance().LoadFont("BurgerTimeFont.otf", 20);
 
@@ -105,7 +137,7 @@ void TronGame::CreateLevel1(dae::Scene& scene2) const
 
 	const auto score{ std::make_shared<dae::GameObject>() };
 	auto scoreText = new dae::TextComponent(score.get(), "Score:", font);
-	scoreText->SetPosition({ 200,0 ,0});
+	scoreText->SetPosition({ 200,0 ,0 });
 	score->AddComponent(scoreText);
 	auto ScoreObserver = new ScoreComponent(score.get(), Tank->GetComponent<dae::TankComponent>(), scoreText);
 	score->AddComponent(ScoreObserver);
@@ -130,7 +162,7 @@ void TronGame::CreateLevel1(dae::Scene& scene2) const
 void TronGame::CreateLevel2(dae::Scene& scene2) const
 {
 
-
+	const auto tank1{ dae::InputManager::GetInstance().AddPlayer(true) };
 
 	const auto Tank{ std::make_shared<dae::GameObject>() };
 
@@ -154,7 +186,24 @@ void TronGame::CreateLevel2(dae::Scene& scene2) const
 	Tank2->SetPosition(300, 300);
 
 
-	AddControlsTank(Tank, 0);
+	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_A, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Left), tank1, dae::InputManager::EInputState::Down);
+	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_D, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Right), tank1, dae::InputManager::EInputState::Down);
+	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_W, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Up), tank1, dae::InputManager::EInputState::Down);
+	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_S, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Down), tank1, dae::InputManager::EInputState::Down);
+	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_SPACE, std::make_shared<AttackCommand>(Tank.get()), tank1, dae::InputManager::EInputState::Pressed);
+	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADLeft, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Left), tank1, dae::InputManager::EInputState::Pressed);
+	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADRight, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Right), tank1, dae::InputManager::EInputState::Pressed);
+	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADUp, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Up), tank1, dae::InputManager::EInputState::Pressed);
+	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADDown, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Down), tank1, dae::InputManager::EInputState::Pressed);
+	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADLeft, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
+	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADRight, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
+	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADUp, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
+	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADDown, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
+	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_A, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
+	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_D, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
+	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_W, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
+	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_S, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
+
 
 	auto font = dae::ResourceManager::GetInstance().LoadFont("BurgerTimeFont.otf", 20);
 
@@ -192,27 +241,6 @@ void TronGame::CreateLevel2(dae::Scene& scene2) const
 	scene2.Add(score);
 }
 
-void TronGame::AddControlsTank(const std::shared_ptr<dae::GameObject> Tank, const int tank1) const
-{
-	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_A, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Left), tank1, dae::InputManager::EInputState::Down);
-	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_D, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Right), tank1, dae::InputManager::EInputState::Down);
-	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_W, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Up), tank1, dae::InputManager::EInputState::Down);
-	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_S, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Down), tank1, dae::InputManager::EInputState::Down);
-	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_SPACE, std::make_shared<AttackCommand>(Tank.get()), tank1, dae::InputManager::EInputState::Pressed);
-	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADLeft, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Left), tank1, dae::InputManager::EInputState::Pressed);
-	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADRight, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Right), tank1, dae::InputManager::EInputState::Pressed);
-	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADUp, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Up), tank1, dae::InputManager::EInputState::Pressed);
-	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADDown, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Down), tank1, dae::InputManager::EInputState::Pressed);
-	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADLeft, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
-	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADRight, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
-	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADUp, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
-	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADDown, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
-	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_A, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
-	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_D, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
-	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_W, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
-	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_S, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
-}
-
 void TronGame::CreateLevel3(dae::Scene& scene2) const
 {
 
@@ -235,14 +263,29 @@ void TronGame::CreateLevel3(dae::Scene& scene2) const
 	Tank2->AddComponent(new dae::RigidBody(Tank2.get()));
 	Tank2->AddComponent(new CollisionComponent(Tank2.get(), 25));
 	Tank2->AddComponent(new dae::TankComponent(Tank2.get()));
+	Tank2->AddComponent(new BulletManager(Tank2.get()));
 
 	Tank2->SetPosition(300, 300);
 
 	const auto tank1{ dae::InputManager::GetInstance().AddPlayer() };
 	const auto tank2{ dae::InputManager::GetInstance().AddPlayer(true) };
-
-
-	AddControlsTank(Tank, 0);
+	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_A, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Left), tank1, dae::InputManager::EInputState::Down);
+	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_D, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Right), tank1, dae::InputManager::EInputState::Down);
+	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_W, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Up), tank1, dae::InputManager::EInputState::Down);
+	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_S, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Down), tank1, dae::InputManager::EInputState::Down);
+	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_SPACE, std::make_shared<AttackCommand>(Tank.get()), tank1, dae::InputManager::EInputState::Pressed);
+	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADLeft, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Left), tank1, dae::InputManager::EInputState::Pressed);
+	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADRight, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Right), tank1, dae::InputManager::EInputState::Pressed);
+	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADUp, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Up), tank1, dae::InputManager::EInputState::Pressed);
+	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADDown, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Down), tank1, dae::InputManager::EInputState::Pressed);
+	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADLeft, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
+	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADRight, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
+	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADUp, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
+	dae::InputManager::GetInstance().AddCommand(dae::XboxController::Button::ButtonDPADDown, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
+	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_A, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
+	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_D, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
+	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_W, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
+	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_S, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
 
 
 	auto font = dae::ResourceManager::GetInstance().LoadFont("BurgerTimeFont.otf", 20);
@@ -283,7 +326,7 @@ void TronGame::CreateLevel3(dae::Scene& scene2) const
 
 void TronGame::CreateStartScreen(dae::Scene& scene) const
 {
-	
+
 	auto font = dae::ResourceManager::GetInstance().LoadFont("BurgerTimeFont.otf", 20);
 	const auto startScreen = std::make_shared<dae::GameObject>();
 	SDL_Rect src{ 0,0,500,500 };
@@ -297,10 +340,10 @@ void TronGame::CreateStartScreen(dae::Scene& scene) const
 	button->AddComponent(textComponent);
 	button->AddComponent(new dae::ButtonComponent(button.get(), textComponent));
 	button->GetComponent<dae::ButtonComponent>()->SetFunction([]
-	{
+		{
 			Sleep(1000);
 			dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(1).get());
-	});
+		});
 	scene.Add(button);
 
 	auto button2 = std::make_shared<dae::GameObject>();
@@ -309,19 +352,21 @@ void TronGame::CreateStartScreen(dae::Scene& scene) const
 	button2->AddComponent(textComponent);
 	button2->AddComponent(new dae::ButtonComponent(button2.get(), textComponent));
 	button2->GetComponent<dae::ButtonComponent>()->SetFunction([]
-	{
-		dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(4).get());
-	});
+		{
+			dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(4).get());
+		});
 
 	auto button3 = std::make_shared<dae::GameObject>();
 	textComponent = new dae::TextComponent(button2.get(), "VERSUS", font);
 	textComponent->SetPosition({ 300, 610,0 });
 	button3->AddComponent(textComponent);
 	button3->AddComponent(new dae::ButtonComponent(button2.get(), textComponent));
-	button3->GetComponent<dae::ButtonComponent>()->SetFunction([]
-	{
-		dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(7).get());
-	});
+	button3->GetComponent<dae::ButtonComponent>()->SetFunction([this]
+		{
+			CreateLevel1(*dae::SceneManager::GetInstance().GetScene(7), false, true);
+			dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(7).get());
+
+		});
 
 
 
@@ -347,21 +392,21 @@ void TronGame::LoadGame() const
 
 	dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(0).get());
 	bool r = dae::LevelParser::ParseOBJ("../Data/Level/Level01.txt", scene2, false);
-	 r = dae::LevelParser::ParseOBJ("../Data/Level/Level02.txt", scene3, false);
-	 r = dae::LevelParser::ParseOBJ("../Data/Level/Level03.txt", scene4, false);
-	 r = dae::LevelParser::ParseOBJ("../Data/Level/Level01.txt", scene5, false);
-	 r = dae::LevelParser::ParseOBJ("../Data/Level/Level02.txt", scene6, false);
-	 r = dae::LevelParser::ParseOBJ("../Data/Level/Level03.txt", scene7, false);
-	 r = dae::LevelParser::ParseOBJ("../Data/Level/Level01.txt", scene8, false);
-	 r = dae::LevelParser::ParseOBJ("../Data/Level/Level02.txt", scene9, false);
-	 r = dae::LevelParser::ParseOBJ("../Data/Level/Level03.txt", scene10, false);
-	 
+	r = dae::LevelParser::ParseOBJ("../Data/Level/Level02.txt", scene3, false);
+	r = dae::LevelParser::ParseOBJ("../Data/Level/Level03.txt", scene4, false);
+	r = dae::LevelParser::ParseOBJ("../Data/Level/Level01.txt", scene5, false);
+	r = dae::LevelParser::ParseOBJ("../Data/Level/Level02.txt", scene6, false);
+	r = dae::LevelParser::ParseOBJ("../Data/Level/Level03.txt", scene7, false);
+	r = dae::LevelParser::ParseOBJ("../Data/Level/Level01.txt", scene8, false);
+	r = dae::LevelParser::ParseOBJ("../Data/Level/Level02.txt", scene9, false);
+	r = dae::LevelParser::ParseOBJ("../Data/Level/Level03.txt", scene10, false);
+
 
 
 
 	CreateStartScreen(scene);
 
-	CreateLevel1(scene2);
+
 	CreateLevel2(scene3);
 	CreateLevel3(scene4);
 }
