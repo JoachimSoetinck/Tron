@@ -37,7 +37,7 @@ void ScoreComponent::SetScore()
 {
 	if (m_pTextComponent != nullptr)
 	{
-		const int lives = m_pTank->GetLives();
+		const int lives = m_pTank->GetScore();
 		// text
 		std::stringstream ssText;
 		ssText << "Score: " << lives;
