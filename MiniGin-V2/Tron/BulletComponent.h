@@ -9,7 +9,7 @@ namespace dae
 class BulletComponent final: public dae::BaseComponent
 {
 public:
-	BulletComponent(dae::GameObject* object, const glm::vec2 direction);
+	BulletComponent(dae::GameObject* object, const glm::vec2 direction, dae::GameObject* parent);
 	~BulletComponent() override = default;
 	BulletComponent(const BulletComponent& other) = delete;
 	BulletComponent(BulletComponent&& other) noexcept = delete;

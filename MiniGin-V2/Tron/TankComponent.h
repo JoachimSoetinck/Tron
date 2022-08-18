@@ -30,8 +30,15 @@ namespace dae
 
 		void SetState(TankState state);
 		int GetLives() const { return m_nrOfLives; };
+		int GetScore() const { return m_score; };
+		void GivePoints(int points) { m_score += points; };
 		void Rotate();
-
+		void LoseLive();
+		void SetRotation(bool canRotate, bool ClockwiseRotation)
+		{
+			m_canRotate = canRotate;
+			m_RotationDirection = ClockwiseRotation;
+		};
 
 	private:
 		TankState m_CurrentState;
@@ -43,8 +50,8 @@ namespace dae
 		int m_nrOfLives{ 3 };
 		int m_score{ 0 };
 
-		float m_TurretAngle{};
-		float m_RotationSpeed{ 40 };
+		bool m_canRotate = false;
+		bool m_RotationDirection = false;
 
 		float m_turnSpeedX{ 0.5f };
 		float m_turnSpeedY{ 0.5f };
@@ -52,7 +59,7 @@ namespace dae
 		SpriteComponent* m_pSprite{};
 
 		void Attack();
-		void LoseLive();
+		
 		
 		float m_attackCoolDown{2.0f};
 		float elapsedSec{ 0.0f };

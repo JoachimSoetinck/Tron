@@ -9,14 +9,14 @@
 #include "TankComponent.h"
 #include "WallComponent.h"
 
-BulletComponent::BulletComponent(dae::GameObject* object, const glm::vec2 direction) :
+BulletComponent::BulletComponent(dae::GameObject* object, const glm::vec2 direction, dae::GameObject* parent) :
 	BaseComponent(object),
 	m_NrOfBounces{ 0 },
 	m_maxNrOfBounces{ 5 },
 	m_direction{ direction },
 	m_pRigidBody{ GetGameObject()->GetComponent<dae::RigidBody>() }
 {
-
+	m_pGameObject->SetParent(parent, true);
 }
 
 void BulletComponent::Render() const
@@ -53,13 +53,21 @@ void BulletComponent::FixedUpdate()
 
 		}
 
-		if (object->GetComponent<dae::TankComponent>() && m_pGameObject->GetParent() != object->GetParent())
+		if (object->GetComponent<dae::TankComponent>() )
 		{
 			//bool isColliding = IsPointInRect(m_lookPoint, object->GetComponent<WallComponent>()->GetWallInfo());
 
 			if (m_pGameObject->GetComponent<CollisionComponent>()->IsOverlapping(object->GetComponent<CollisionComponent>()))
 			{
 				m_isDead = true;
+
+				if(m_pGameObject->GetParent()->GetComponent<dae::TankComponent>())
+				{
+					m_pGameObject->GetParent()->GetComponent<dae::TankComponent>()->GivePoints(100);
+					m_pGameObject->GetParent()->GetComponent<dae::TankComponent>()->NotifyAllObservers(Event::GivePoints);
+					object->GetComponent<dae::TankComponent>()->LoseLive();
+
+				}
 
 
 			}

@@ -19,14 +19,14 @@ namespace dae {
 		virtual void Render() const = 0;
 
 		GameObject* GetGameObject() const;
-		
+
 
 	private:
 
 	protected:
 		glm::vec2 m_position;
 		GameObject* m_pGameObject = nullptr;
-		 BaseComponent(dae::GameObject* pGameObject);
+		BaseComponent(dae::GameObject* pGameObject);
 	};
 
 }

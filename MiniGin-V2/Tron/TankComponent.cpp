@@ -94,30 +94,24 @@ dae::TankComponent::TankComponent(GameObject* gameObject) :
 
 void dae::TankComponent::Update()
 {
-	if(m_hasAttacked)
+	if (m_hasAttacked)
 	{
 		elapsedSec += dae::Time::GetInstance().GetDeltaTime();
 
-		if(elapsedSec >= m_attackCoolDown)
+		if (elapsedSec >= m_attackCoolDown)
 		{
 			m_hasAttacked = false;
 			elapsedSec = 0.0f;
 		}
 	}
 
-	if (m_lookDirection.x >= 1.0f || m_lookDirection.x <= -1.0f)
+	if (m_canRotate)
+		Rotate();
+
+	if (m_nrOfLives <= 0)
 	{
-		m_turnSpeedX *= -1;
+		//SceneManager::GetInstance().GetActiveScene()->Remove(*m_pGameObject);
 	}
-
-	if (m_lookDirection.y >= 1.0f || m_lookDirection.y <= -1.0f)
-	{
-		m_turnSpeedY *= -1;
-	}
-
-
-	m_lookDirection.x -= m_turnSpeedX * dae::Time::GetInstance().GetDeltaTime();
-	m_lookDirection.y += m_turnSpeedY * dae::Time::GetInstance().GetDeltaTime();
 
 }
 
@@ -170,10 +164,10 @@ void dae::TankComponent::Attack()
 	bullet->AddComponent(new SpriteComponent(bullet.get(), Sprite("TronSprite.png", 1, 1, { 192,0,10,10 }), { 0,0,10,10 }));
 	bullet->AddComponent(new RigidBody(bullet.get()));
 	bullet->AddComponent(new CollisionComponent(bullet.get(), 10));
-	bullet->AddComponent(new BulletComponent(bullet.get(), m_lookDirection));
+	bullet->AddComponent(new BulletComponent(bullet.get(), m_lookDirection, this->GetGameObject()));
 
-	const auto pos =  {static_cast<int>(m_center.x + m_lookDirection.x * 10), static_cast<int>(m_center.y + m_lookDirection.y * 10) };
-	bullet->SetPosition(static_cast<int>(m_center.x + m_lookDirection.x * 10), static_cast<int>(m_center.y + m_lookDirection.y * 10));
+
+	bullet->SetPosition(static_cast<int>(m_center.x + m_lookDirection.x * 26), static_cast<int>(m_center.y + m_lookDirection.y * 26));
 	GetGameObject()->GetComponent<BulletManager>()->AddBullet(bullet);
 
 }
@@ -187,7 +181,26 @@ void dae::TankComponent::LoseLive()
 void dae::TankComponent::Rotate()
 {
 
+	if (m_lookDirection.x >= 1.0f || m_lookDirection.x <= -1.0f)
+	{
+		m_turnSpeedX *= -1;
+	}
 
+	if (m_lookDirection.y >= 1.0f || m_lookDirection.y <= -1.0f)
+	{
+		m_turnSpeedY *= -1;
+	}
+
+	if (m_RotationDirection)
+	{
+		m_lookDirection.x -= m_turnSpeedX * dae::Time::GetInstance().GetDeltaTime();
+		m_lookDirection.y += m_turnSpeedY * dae::Time::GetInstance().GetDeltaTime();
+	}
+	else
+	{
+		m_lookDirection.x += m_turnSpeedX * dae::Time::GetInstance().GetDeltaTime();
+		m_lookDirection.y -= m_turnSpeedY * dae::Time::GetInstance().GetDeltaTime();
+	}
 
 
 }

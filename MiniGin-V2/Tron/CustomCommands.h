@@ -52,6 +52,27 @@ private:
 
 };
 
+class RotateCommand final : public Command
+{
+public:
+	RotateCommand(dae::GameObject* gameObject, bool canRotate, bool rotationClockWise) :Command(gameObject), m_canRotate{canRotate}, m_RotateClockwise{ rotationClockWise } {}
+	~RotateCommand() override = default;
+
+	RotateCommand(const RotateCommand& other) = delete;
+	RotateCommand(RotateCommand&& other) noexcept = delete;
+	RotateCommand& operator=(const RotateCommand& other) = delete;
+	RotateCommand& operator=(RotateCommand&& other) noexcept = delete;
+
+	void Execute() override
+	{
+		GetGameObject()->GetComponent<dae::TankComponent>()->SetRotation(m_canRotate, m_RotateClockwise);
+	}
+private:
+	bool m_canRotate{};
+	bool m_RotateClockwise{};
+	
+};
+
 
 
 
