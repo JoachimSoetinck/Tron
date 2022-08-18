@@ -61,8 +61,8 @@ void dae::Minigin::Initialize()
 
 	Renderer::GetInstance().Init(m_Window);
 
-	
-	ServiceLocator::RegisterSoundSystem(new SoundSystem());
+	auto soundSystem = std::make_shared<SoundSystem>();
+	ServiceLocator::RegisterSoundSystem(soundSystem);
 
 }
 
@@ -78,8 +78,6 @@ void dae::Minigin::LoadGame() const
 
 void dae::Minigin::Cleanup()
 {
-	ServiceLocator::RegisterSoundSystem(nullptr);
-	
 	Renderer::GetInstance().Destroy();
 	
 	SDL_DestroyWindow(m_Window);

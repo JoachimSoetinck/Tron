@@ -14,12 +14,13 @@ namespace dae
 		ServiceLocator& operator=(const ServiceLocator& other) = delete;
 		ServiceLocator& operator=(ServiceLocator&& other) = delete;
 
-		static dae::BaseSoundSystem& GetSoundSystem();
-		static void RegisterSoundSystem(BaseSoundSystem* soundSystem);
+		static dae::BaseSoundSystem* GetSoundSystem();
+		static void RegisterSoundSystem(std::shared_ptr<BaseSoundSystem> soundSystem);
 
 	private:
-		static BaseSoundSystem* m_SoundSystem;
-		static Null_SoundSystem m_DefaultSystem;
+
+		static std::shared_ptr<BaseSoundSystem> m_pSoundSystem;
+		static Null_SoundSystem m_pNullSoundSystem;
 	};
 };
 

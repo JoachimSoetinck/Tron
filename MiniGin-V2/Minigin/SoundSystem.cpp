@@ -12,6 +12,14 @@
 class dae::BaseSoundSystem::SoundSystemImpl
 {
 private:
+	std::thread m_thread;
+	std::condition_variable m_Cv;
+	std::queue<std::pair< unsigned short, float>> m_SoundsToPlay;
+	
+	std::mutex m_Mutex;
+	bool m_IsRunning;
+	const int m_SoundChannels = 16;
+
 	std::vector<Sound*> m_soundsPlayed{};
 	std::queue<Sound*> m_Sounds{};
 	std::mutex mutex;

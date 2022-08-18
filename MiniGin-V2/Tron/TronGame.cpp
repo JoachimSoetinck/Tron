@@ -72,8 +72,6 @@ void TronGame::CreateLevel1(dae::Scene& scene2) const
 
 
 
-
-
 	//dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_A, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Left), tank1, dae::InputManager::EInputState::Down);
 	//dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_D, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Right), tank1, dae::InputManager::EInputState::Down);
 	//dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_W, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::Up), tank1, dae::InputManager::EInputState::Down);
@@ -263,7 +261,7 @@ void TronGame::CreateLevel3(dae::Scene& scene2) const
 
 void TronGame::CreateStartScreen(dae::Scene& scene) const
 {
-	dae::ServiceLocator::GetSoundSystem().RegisterSound("../Data/Sound/1.wav");
+	dae::ServiceLocator::GetSoundSystem()->RegisterSound("../Data/Sound/1.wav");
 	
 	auto font = dae::ResourceManager::GetInstance().LoadFont("BurgerTimeFont.otf", 20);
 	;

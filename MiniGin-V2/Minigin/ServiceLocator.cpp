@@ -1,24 +1,28 @@
 #include "MiniginPCH.h"
 #include "ServiceLocator.h"
 
-dae::BaseSoundSystem* dae::ServiceLocator::m_SoundSystem{};
-dae::Null_SoundSystem dae::ServiceLocator::m_DefaultSystem{};
+dae::Null_SoundSystem dae::ServiceLocator::m_pNullSoundSystem{};
+std::shared_ptr<dae::BaseSoundSystem> dae::ServiceLocator::m_pSoundSystem{ std::make_shared<Null_SoundSystem>(m_pNullSoundSystem) };
+
 
 dae::ServiceLocator::~ServiceLocator()
 {
-	delete m_SoundSystem;
+	
 }
 
-dae::BaseSoundSystem& dae::ServiceLocator::GetSoundSystem()
+dae::BaseSoundSystem* dae::ServiceLocator::GetSoundSystem()
 {
-	return *m_SoundSystem;
+	return m_pSoundSystem.get();
 }
 
-void dae::ServiceLocator::RegisterSoundSystem(BaseSoundSystem* soundSystem)
+void dae::ServiceLocator::RegisterSoundSystem(std::shared_ptr<BaseSoundSystem> soundSystem)
 {
-	//Deleting current system ->else causes memory leak
-	if (soundSystem != &m_DefaultSystem)
-		delete m_SoundSystem;
-
-	m_SoundSystem = soundSystem == nullptr ? &m_DefaultSystem : soundSystem;
+    if (soundSystem == nullptr)
+    {
+        m_pSoundSystem = std::shared_ptr<BaseSoundSystem>(&m_pNullSoundSystem);;
+    }
+    else
+    {
+        m_pSoundSystem = std::shared_ptr<BaseSoundSystem>(soundSystem);;
+    }
 }
