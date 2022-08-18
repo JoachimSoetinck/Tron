@@ -12,6 +12,7 @@ public:
 private:
 	void CreateLevel1(dae::Scene& scene2) const;
 	void CreateLevel2(dae::Scene& scene2) const;
+	void AddControlsTank(std::shared_ptr<dae::GameObject> Tank, int tank1) const;
 	void CreateLevel3(dae::Scene& scene2) const;
 	
 
