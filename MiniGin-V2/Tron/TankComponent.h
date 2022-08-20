@@ -31,7 +31,11 @@ namespace dae
 		void SetState(TankState state);
 		int GetLives() const { return m_nrOfLives; };
 		int GetScore() const { return m_score; };
-		void GivePoints(int points) { m_score += points; };
+		void GivePoints(int points)
+		{
+			NotifyAllObservers(Event::GivePoints);
+			m_score += points;
+		};
 		void Rotate();
 		void LoseLive();
 		void SetRotation(bool canRotate, bool ClockwiseRotation)
@@ -55,6 +59,7 @@ namespace dae
 
 		float m_turnSpeedX{ 0.5f };
 		float m_turnSpeedY{ 0.5f };
+		int m_nrOFTanksKilled{ 0 };
 
 		SpriteComponent* m_pSprite{};
 

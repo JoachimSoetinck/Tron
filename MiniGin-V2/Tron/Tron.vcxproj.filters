@@ -52,7 +52,7 @@
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="ControllerComponent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -84,7 +84,7 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="ControllerComponent.h">
-      <Filter>Header Files</Filter>
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

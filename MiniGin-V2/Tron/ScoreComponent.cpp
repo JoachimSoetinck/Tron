@@ -26,7 +26,7 @@ void ScoreComponent::OnNotify(Event event)
 
 void ScoreComponent::Update()
 {
-
+	SetScore();
 }
 
 void ScoreComponent::Render() const

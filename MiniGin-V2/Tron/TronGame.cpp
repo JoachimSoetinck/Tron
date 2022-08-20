@@ -3,6 +3,7 @@
 #include "BulletManager.h"
 #include "ButtonComponent.h"
 #include "CollisionComponent.h"
+#include "ControllerComponent.h"
 #include "CustomCommands.h"
 #include "GameObject.h"
 #include "InputManager.h"
@@ -104,7 +105,7 @@ void TronGame::CreateScoreText(dae::Scene& scene2, std::shared_ptr<dae::GameObje
 {
 	auto font = dae::ResourceManager::GetInstance().LoadFont("BurgerTimeFont.otf", 20);
 	const auto score{ std::make_shared<dae::GameObject>() };
-	auto scoreText = new dae::TextComponent(score.get(), "Lives:", font);
+	auto scoreText = new dae::TextComponent(score.get(), "Score:", font);
 	scoreText->SetPosition(pos);
 	score->AddComponent(scoreText);
 	auto scoreObserver = new ScoreComponent(score.get(), Tank->GetComponent<dae::TankComponent>(), scoreText);
@@ -124,7 +125,21 @@ void TronGame::CreateLevel1(dae::Scene& scene2, bool isCoop, bool  isVersus) con
 	Tank->AddComponent(new CollisionComponent(Tank.get(), 25));
 	Tank->AddComponent(new dae::TankComponent(Tank.get()));
 	Tank->AddComponent(new BulletManager(Tank.get()));
+
+	if (isCoop)
+	{
+		Tank->AddComponent(new ControllerComponent(Tank.get(), Tank->GetComponent<dae::TankComponent>(), dae::SceneManager::GetInstance().GetScene(4).get()));
+	}
+	else if (isVersus)
+	{
+		Tank->AddComponent(new ControllerComponent(Tank.get(), Tank->GetComponent<dae::TankComponent>(), dae::SceneManager::GetInstance().GetScene(7).get()));
+	}
+	else
+		Tank->AddComponent(new ControllerComponent(Tank.get(), Tank->GetComponent<dae::TankComponent>(), dae::SceneManager::GetInstance().GetScene(2).get()));
+
+
 	Tank->SetPosition(70, 100);
+
 
 
 	const auto Tank2{ std::make_shared<dae::GameObject>() };
@@ -169,9 +184,15 @@ void TronGame::CreateLevel1(dae::Scene& scene2, bool isCoop, bool  isVersus) con
 
 
 	CreateLivesText(scene2, Tank, { 0,0,0 });
-	CreateLivesText(scene2, Tank2, { 400,0,0 });
 	CreateScoreText(scene2, Tank, { 200,0,0 });
-	CreateScoreText(scene2, Tank2, { 600,0,0 });
+	if(isVersus)
+	{
+		CreateLivesText(scene2, Tank2, { 400,0,0 });
+		CreateScoreText(scene2, Tank2, { 600,0,0 });
+	}
+	
+	
+	
 
 
 
@@ -288,16 +309,15 @@ void TronGame::CreateLevel2(dae::Scene& scene2, bool IsCoop, bool IsVersus) cons
 
 void TronGame::CreateLevel3(dae::Scene& scene2, bool IsCoop, bool IsVersus) const
 {
-
-
 	const auto Tank{ std::make_shared<dae::GameObject>() };
-
 	SDL_Rect src{ 352,0,32,32 };
 	Tank->AddComponent(new SpriteComponent(Tank.get(), Sprite("TronSprite.png", 1, 1, src), { 0,0,25,25 }));
 	Tank->AddComponent(new dae::RigidBody(Tank.get()));
 	Tank->AddComponent(new CollisionComponent(Tank.get(), 25));
 	Tank->AddComponent(new dae::TankComponent(Tank.get()));
 	Tank->AddComponent(new BulletManager(Tank.get()));
+
+	
 	Tank->SetPosition(70, 100);
 
 

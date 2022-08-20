@@ -94,6 +94,7 @@ dae::TankComponent::TankComponent(GameObject* gameObject) :
 
 void dae::TankComponent::Update()
 {
+	m_nrOFTanksKilled = floor(m_score % 3);
 	if (m_hasAttacked)
 	{
 		elapsedSec += dae::Time::GetInstance().GetDeltaTime();
@@ -110,7 +111,7 @@ void dae::TankComponent::Update()
 
 	if (m_nrOfLives <= 0)
 	{
-		//SceneManager::GetInstance().GetActiveScene()->Remove(std::make_shared<GameObject>(*m_pGameObject));
+
 		for (auto component :m_pGameObject->GetComponents())
 		{
 			m_pGameObject->RemoveComponent<BaseComponent>(component);
