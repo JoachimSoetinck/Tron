@@ -45,9 +45,9 @@ namespace dae
 		GameObject& operator=(const GameObject& other) = delete;
 		GameObject& operator=(GameObject&& other) = delete;
 		void SetParent(dae::GameObject* parent, bool keepWorldPosition = false);
+		std::vector<BaseComponent*> GetComponents() const { return m_pComponents; };
 
 	private:
-		
 
 		Transform m_Transform;
 		std::vector<BaseComponent*> m_pComponents{};

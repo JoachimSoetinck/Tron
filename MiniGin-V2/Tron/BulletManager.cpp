@@ -43,7 +43,6 @@ void BulletManager::Update()
 		if (m_pBullets[i]->GetComponent<BulletComponent>()->IsDead())
 		{
 			RemoveBullet(m_pBullets[i]);
-			
 		}
 	}
 }

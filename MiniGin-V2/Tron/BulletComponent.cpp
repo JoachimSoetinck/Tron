@@ -69,7 +69,6 @@ void BulletComponent::FixedUpdate()
 
 				}
 
-
 			}
 
 		}

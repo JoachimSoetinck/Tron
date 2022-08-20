@@ -110,7 +110,11 @@ void dae::TankComponent::Update()
 
 	if (m_nrOfLives <= 0)
 	{
-		//SceneManager::GetInstance().GetActiveScene()->Remove(*m_pGameObject);
+		//SceneManager::GetInstance().GetActiveScene()->Remove(std::make_shared<GameObject>(*m_pGameObject));
+		for (auto component :m_pGameObject->GetComponents())
+		{
+			m_pGameObject->RemoveComponent<BaseComponent>(component);
+		}
 	}
 
 }

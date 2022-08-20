@@ -51,6 +51,9 @@
     <ClCompile Include="ScoreComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="ControllerComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TronGame.h">
@@ -79,6 +82,9 @@
     </ClInclude>
     <ClInclude Include="ScoreComponent.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ControllerComponent.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -14,8 +14,8 @@ private:
 	void CreateLivesText(dae::Scene& scene2, std::shared_ptr<dae::GameObject> Tank, glm::vec3 pos) const;
 	void CreateScoreText(dae::Scene& scene2, std::shared_ptr<dae::GameObject> Tank, glm::vec3 pos) const;
 	void CreateLevel1(dae::Scene& scene2, bool isCoop, bool  isVersus) const;
-	void CreateLevel2(dae::Scene& scene2) const;
-	void CreateLevel3(dae::Scene& scene2) const;
+	void CreateLevel2(dae::Scene& scene2, bool IsCoop, bool IsVersus) const;
+	void CreateLevel3(dae::Scene& scene2, bool IsCoop, bool IsVersus) const;
 
 
 };
