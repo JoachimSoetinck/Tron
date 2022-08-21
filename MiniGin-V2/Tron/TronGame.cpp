@@ -136,10 +136,7 @@ void TronGame::CreateLevel1(dae::Scene& scene2, bool isCoop, bool  isVersus) con
 	Tank2->AddComponent(new dae::TankComponent(Tank2.get()));
 	Tank2->AddComponent(new BulletManager(Tank2.get()));
 	Tank2->SetPosition(300, 305);
-	if (isVersus == false)
-		Tank2->GetComponent<dae::TankComponent>()->SetAI(true);
-
-
+	
 
 	HandleInputPlayer(Tank, 0);
 
@@ -160,7 +157,7 @@ void TronGame::CreateLevel1(dae::Scene& scene2, bool isCoop, bool  isVersus) con
 
 	else if (isVersus)
 	{
-		Tank2->GetComponent<dae::TankComponent>()->SetAI(false);
+	
 		HandleInputPlayer(Tank2, 1);
 	}
 
@@ -174,16 +171,13 @@ void TronGame::CreateLevel1(dae::Scene& scene2, bool isCoop, bool  isVersus) con
 	CreateLivesText(scene2, Tank, { 0,0,0 });
 	CreateLivesText(scene2, Tank2, { 400,0,0 });
 	CreateScoreText(scene2, Tank, { 200,0,0 });
-<<<<<<< HEAD
+
 	if (isVersus)
 	{
 		CreateLivesText(scene2, Tank2, { 400,0,0 });
 		CreateScoreText(scene2, Tank2, { 600,0,0 });
 	}
-=======
 	CreateScoreText(scene2, Tank2, { 600,0,0 });
->>>>>>> parent of d872856 (Adding level swap on score limit reached)
-
 
 
 	const auto button = std::make_shared<dae::GameObject>();
@@ -195,20 +189,21 @@ void TronGame::CreateLevel1(dae::Scene& scene2, bool isCoop, bool  isVersus) con
 		{
 			if (isCoop)
 			{
+				Sleep(750);
 				CreateLevel2(*dae::SceneManager::GetInstance().GetScene(2).get(), true, false);
-				Sleep(500);
 				dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(6).get());
 			}
 			else if (isVersus)
 			{
+				Sleep(750);
 				CreateLevel2(*dae::SceneManager::GetInstance().GetScene(2).get(), false, true);
-				Sleep(500);
+			
 				dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(2).get());
 			}
 			else
 			{
+				Sleep(1000);
 				CreateLevel2(*dae::SceneManager::GetInstance().GetScene(2).get(), false, false);
-				Sleep(500);
 				dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(2).get());
 			}
 
@@ -307,11 +302,7 @@ void TronGame::CreateLevel3(dae::Scene& scene2, bool IsCoop, bool IsVersus) cons
 	Tank->AddComponent(new CollisionComponent(Tank.get(), 25));
 	Tank->AddComponent(new dae::TankComponent(Tank.get()));
 	Tank->AddComponent(new BulletManager(Tank.get()));
-<<<<<<< HEAD
 
-
-=======
->>>>>>> parent of d872856 (Adding level swap on score limit reached)
 	Tank->SetPosition(70, 100);
 
 
@@ -393,7 +384,7 @@ void TronGame::CreateStartScreen(dae::Scene& scene) const
 	button->GetComponent<dae::ButtonComponent>()->SetFunction([this]
 		{
 
-			Sleep(50);
+			Sleep(500);
 			CreateLevel1(*dae::SceneManager::GetInstance().GetScene(1), false, false);
 			dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(1).get());
 		});

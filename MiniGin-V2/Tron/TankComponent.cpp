@@ -115,13 +115,7 @@ void dae::TankComponent::Update()
 
 	if (m_nrOfLives <= 0)
 	{
-<<<<<<< HEAD
-
-		for (auto component : m_pGameObject->GetComponents())
-=======
-		//SceneManager::GetInstance().GetActiveScene()->Remove(std::make_shared<GameObject>(*m_pGameObject));
 		for (auto component :m_pGameObject->GetComponents())
->>>>>>> parent of d872856 (Adding level swap on score limit reached)
 		{
 			m_pGameObject->RemoveComponent<BaseComponent>(component);
 		}

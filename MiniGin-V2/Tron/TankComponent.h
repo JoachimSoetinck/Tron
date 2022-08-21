@@ -40,11 +40,7 @@ namespace dae
 			m_RotationDirection = ClockwiseRotation;
 		};
 
-		void SetAI(bool isAi)
-		{
-			m_IsAI = isAi;
-			//SetState(TankState::Left);
-		}
+
 
 	private:
 		TankState m_CurrentState;
