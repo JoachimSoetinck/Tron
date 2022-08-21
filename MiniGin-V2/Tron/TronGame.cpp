@@ -3,6 +3,7 @@
 #include "BulletManager.h"
 #include "ButtonComponent.h"
 #include "CollisionComponent.h"
+#include "ControllerComponent.h"
 #include "CustomCommands.h"
 #include "GameObject.h"
 #include "InputManager.h"
@@ -117,7 +118,6 @@ void TronGame::CreateScoreText(dae::Scene& scene2, std::shared_ptr<dae::GameObje
 void TronGame::CreateLevel1(dae::Scene& scene2, bool isCoop, bool  isVersus) const
 {
 
-
 	const auto Tank{ std::make_shared<dae::GameObject>() };
 
 	SDL_Rect src{ 352,0,32,32 };
@@ -126,6 +126,7 @@ void TronGame::CreateLevel1(dae::Scene& scene2, bool isCoop, bool  isVersus) con
 	Tank->AddComponent(new CollisionComponent(Tank.get(), 25));
 	Tank->AddComponent(new dae::TankComponent(Tank.get()));
 	Tank->AddComponent(new BulletManager(Tank.get()));
+	Tank->AddComponent(new ControllerComponent(Tank.get(), Tank->GetComponent<dae::TankComponent>()));
 	Tank->SetPosition(70, 100);
 
 
@@ -228,6 +229,7 @@ void TronGame::CreateLevel2(dae::Scene& scene2, bool IsCoop, bool IsVersus) cons
 	Tank->AddComponent(new CollisionComponent(Tank.get(), 25));
 	Tank->AddComponent(new dae::TankComponent(Tank.get()));
 	Tank->AddComponent(new BulletManager(Tank.get()));
+	Tank->AddComponent(new ControllerComponent(Tank.get(), Tank->GetComponent<dae::TankComponent>()));
 	Tank->SetPosition(70, 100);
 
 
@@ -288,20 +290,20 @@ void TronGame::CreateLevel2(dae::Scene& scene2, bool IsCoop, bool IsVersus) cons
 			if (IsCoop)
 			{
 				Sleep(750);
-				CreateLevel2(*dae::SceneManager::GetInstance().GetScene(2).get(), true, false);
+				CreateLevel3(*dae::SceneManager::GetInstance().GetScene(2).get(), true, false);
 				dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(6).get());
 			}
 			else if (IsVersus)
 			{
 				Sleep(750);
-				CreateLevel2(*dae::SceneManager::GetInstance().GetScene(5).get(), false, true);
+				CreateLevel3(*dae::SceneManager::GetInstance().GetScene(5).get(), false, true);
 
 				dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(9).get());
 			}
 			else
 			{
 				Sleep(1000);
-				CreateLevel2(*dae::SceneManager::GetInstance().GetScene(8).get(), false, false);
+				CreateLevel3(*dae::SceneManager::GetInstance().GetScene(8).get(), false, false);
 				dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(3).get());
 			}
 
@@ -322,6 +324,7 @@ void TronGame::CreateLevel3(dae::Scene& scene2, bool IsCoop, bool IsVersus) cons
 	Tank->AddComponent(new CollisionComponent(Tank.get(), 25));
 	Tank->AddComponent(new dae::TankComponent(Tank.get()));
 	Tank->AddComponent(new BulletManager(Tank.get()));
+	Tank->AddComponent(new ControllerComponent(Tank.get(), Tank->GetComponent<dae::TankComponent>()));
 
 	Tank->SetPosition(70, 100);
 
@@ -484,7 +487,7 @@ void TronGame::LoadGame() const
 	CreateLevel2(scene6, true, false);
 	CreateLevel3(scene7, true, false);
 
-	CreateLevel2(scene9, true, false);
-	CreateLevel3(scene10, true, false);
+	CreateLevel2(scene9, false, true);
+	CreateLevel3(scene10, false, true);
 
 }

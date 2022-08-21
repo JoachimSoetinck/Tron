@@ -5,7 +5,7 @@
 class ControllerComponent final : public dae::BaseComponent
 {
 public:
-	ControllerComponent(dae::GameObject* object, dae::TankComponent* tank, dae::Scene* nextScene);
+	ControllerComponent(dae::GameObject* object, dae::TankComponent* tank);
 	~ControllerComponent() override = default;
 	ControllerComponent(const ControllerComponent& other) = delete;
 	ControllerComponent(ControllerComponent&& other) noexcept = delete;
@@ -18,7 +18,7 @@ public:
 
 
 private:
+	int m_nrOfLevels{ 3 };
 	dae::TankComponent* m_pTank;
-	dae::Scene* m_pScene;
 
 };
