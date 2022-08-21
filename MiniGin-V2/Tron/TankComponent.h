@@ -17,7 +17,7 @@ namespace dae
 
 		
 		
-		TankComponent(GameObject* gameObject);
+		TankComponent(GameObject* gameObject,bool IsAI = false);
 		~TankComponent() override = default;
 		TankComponent(const TankComponent& other) = delete;
 		TankComponent(TankComponent&& other) noexcept = delete;
@@ -43,6 +43,12 @@ namespace dae
 			m_canRotate = canRotate;
 			m_RotationDirection = ClockwiseRotation;
 		};
+
+		void SetAI(bool isAi)
+		{
+			m_IsAI = isAi;
+			SetState(TankState::Left);
+		}
 
 	private:
 		TankState m_CurrentState;
@@ -71,7 +77,8 @@ namespace dae
 		bool m_hasAttacked{false};
 
 		bool IsPointInRect(const glm::vec2& point, SDL_Rect rect);
-
+		bool m_IsAI;
+		int m_TankState{0};
 		glm::ivec2 m_center{};
 	};
 }

@@ -82,12 +82,17 @@ void dae::TankComponent::SetState(TankState state)
 	}
 }
 
-dae::TankComponent::TankComponent(GameObject* gameObject) :
+dae::TankComponent::TankComponent(GameObject* gameObject, bool isAI) :
 	BaseComponent(gameObject)
 	, m_CurrentState{ TankState::idle }
 	, m_RigidBody{ GetGameObject()->GetComponent<RigidBody>() }
 	, m_pSprite{ GetGameObject()->GetComponent<SpriteComponent>() }
+, m_IsAI{isAI}
 {
+	if(m_IsAI)
+	{
+		m_CurrentState = TankState::Left;
+	}
 	m_center = { GetGameObject()->GetLocalPosition().x + GetGameObject()->GetComponent<SpriteComponent>()->GetDestRect().w / 2,
 		GetGameObject()->GetLocalPosition().y + GetGameObject()->GetComponent<SpriteComponent>()->GetDestRect().h / 2 };
 }
@@ -137,18 +142,42 @@ void dae::TankComponent::FixedUpdate()
 
 	for (auto object : objects)
 	{
-		if (object->GetComponent<WallComponent>())
+		if (m_IsAI)
 		{
-			bool isColliding = IsPointInRect(m_lookPoint, object->GetComponent<WallComponent>()->GetWallInfo());
-
-			if (isColliding)
+			SetState(static_cast<TankState>(m_TankState));
+			if (object->GetComponent<WallComponent>())
 			{
 
-				SetState(TankState::idle);
+				bool isColliding = IsPointInRect(m_lookPoint, object->GetComponent<WallComponent>()->GetWallInfo());
 
+				if (isColliding)
+				{
+					++m_TankState;
+					m_TankState %= 4;
+					
+					SetState(static_cast<TankState>(m_TankState));
+
+				}
 			}
 		}
+		else
+		{
+			if (object->GetComponent<WallComponent>())
+			{
+				bool isColliding = IsPointInRect(m_lookPoint, object->GetComponent<WallComponent>()->GetWallInfo());
+
+				if (isColliding)
+				{
+
+					SetState(TankState::idle);
+
+				}
+			}
+		}
+		
 	}
+
+	
 
 	if (m_RigidBody)
 	{

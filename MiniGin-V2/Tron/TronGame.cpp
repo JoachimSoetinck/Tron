@@ -150,8 +150,8 @@ void TronGame::CreateLevel1(dae::Scene& scene2, bool isCoop, bool  isVersus) con
 	Tank2->AddComponent(new CollisionComponent(Tank2.get(), 25));
 	Tank2->AddComponent(new dae::TankComponent(Tank2.get()));
 	Tank2->AddComponent(new BulletManager(Tank2.get()));
-	Tank2->SetPosition(300, 300);
-
+	Tank2->SetPosition(300, 305);
+	Tank2->GetComponent<dae::TankComponent>()->SetAI(true);
 
 
 
@@ -172,10 +172,12 @@ void TronGame::CreateLevel1(dae::Scene& scene2, bool isCoop, bool  isVersus) con
 		HandleInputPlayer(Tank3, 1);
 	}
 
-	if (isVersus)
+	else if (isVersus)
 	{
+		Tank2->GetComponent<dae::TankComponent>()->SetAI(false);
 		HandleInputPlayer(Tank2, 1);
 	}
+	
 
 	auto font = dae::ResourceManager::GetInstance().LoadFont("BurgerTimeFont.otf", 20);
 
@@ -185,14 +187,14 @@ void TronGame::CreateLevel1(dae::Scene& scene2, bool isCoop, bool  isVersus) con
 
 	CreateLivesText(scene2, Tank, { 0,0,0 });
 	CreateScoreText(scene2, Tank, { 200,0,0 });
-	if(isVersus)
+	if (isVersus)
 	{
 		CreateLivesText(scene2, Tank2, { 400,0,0 });
 		CreateScoreText(scene2, Tank2, { 600,0,0 });
 	}
-	
-	
-	
+
+
+
 
 
 
@@ -246,7 +248,7 @@ void TronGame::CreateLevel2(dae::Scene& scene2, bool IsCoop, bool IsVersus) cons
 	Tank2->AddComponent(new CollisionComponent(Tank2.get(), 25));
 	Tank2->AddComponent(new dae::TankComponent(Tank2.get()));
 
-	Tank2->SetPosition(300, 300);
+	Tank2->SetPosition(300, 305);
 
 
 	HandleInputPlayer(Tank, 0);
@@ -317,7 +319,7 @@ void TronGame::CreateLevel3(dae::Scene& scene2, bool IsCoop, bool IsVersus) cons
 	Tank->AddComponent(new dae::TankComponent(Tank.get()));
 	Tank->AddComponent(new BulletManager(Tank.get()));
 
-	
+
 	Tank->SetPosition(70, 100);
 
 
@@ -405,8 +407,9 @@ void TronGame::CreateStartScreen(dae::Scene& scene) const
 	button->AddComponent(new dae::ButtonComponent(button.get(), textComponent));
 	button->GetComponent<dae::ButtonComponent>()->SetFunction([this]
 		{
+			
+			Sleep(50);
 			CreateLevel1(*dae::SceneManager::GetInstance().GetScene(1), false, false);
-			Sleep(1000);
 			dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(1).get());
 		});
 	scene.Add(button);
