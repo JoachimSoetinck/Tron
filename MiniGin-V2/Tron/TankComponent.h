@@ -47,7 +47,7 @@ namespace dae
 		void SetAI(bool isAi)
 		{
 			m_IsAI = isAi;
-			SetState(TankState::Left);
+			//SetState(TankState::Left);
 		}
 
 	private:

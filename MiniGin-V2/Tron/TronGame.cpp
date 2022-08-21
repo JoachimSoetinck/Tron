@@ -151,7 +151,8 @@ void TronGame::CreateLevel1(dae::Scene& scene2, bool isCoop, bool  isVersus) con
 	Tank2->AddComponent(new dae::TankComponent(Tank2.get()));
 	Tank2->AddComponent(new BulletManager(Tank2.get()));
 	Tank2->SetPosition(300, 305);
-	Tank2->GetComponent<dae::TankComponent>()->SetAI(true);
+	if (isVersus == false)
+		Tank2->GetComponent<dae::TankComponent>()->SetAI(true);
 
 
 
@@ -177,7 +178,7 @@ void TronGame::CreateLevel1(dae::Scene& scene2, bool isCoop, bool  isVersus) con
 		Tank2->GetComponent<dae::TankComponent>()->SetAI(false);
 		HandleInputPlayer(Tank2, 1);
 	}
-	
+
 
 	auto font = dae::ResourceManager::GetInstance().LoadFont("BurgerTimeFont.otf", 20);
 
@@ -195,21 +196,24 @@ void TronGame::CreateLevel1(dae::Scene& scene2, bool isCoop, bool  isVersus) con
 
 
 
-
-
-
 	const auto button = std::make_shared<dae::GameObject>();
 	auto textComponent = new dae::TextComponent(button.get(), "Skip", font);
 	textComponent->SetPosition({ 300, 550,0 });
 	button->AddComponent(textComponent);
 	button->AddComponent(new dae::ButtonComponent(button.get(), textComponent));
-	button->GetComponent<dae::ButtonComponent>()->SetFunction([this, isCoop]
+	button->GetComponent<dae::ButtonComponent>()->SetFunction([this, isCoop, isVersus]
 		{
 			if (isCoop)
 			{
 				CreateLevel2(*dae::SceneManager::GetInstance().GetScene(2).get(), true, false);
 				Sleep(500);
 				dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(6).get());
+			}
+			else if (isVersus)
+			{
+				CreateLevel2(*dae::SceneManager::GetInstance().GetScene(2).get(), false, true);
+				Sleep(500);
+				dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(2).get());
 			}
 			else
 			{
@@ -279,20 +283,13 @@ void TronGame::CreateLevel2(dae::Scene& scene2, bool IsCoop, bool IsVersus) cons
 	scene2.Add(Tank2);
 
 
-	const auto lives{ std::make_shared<dae::GameObject>() };
-	auto livesText = new dae::TextComponent(lives.get(), "Lives:", font);
-	lives->AddComponent(livesText);
-	auto livesObserver = new dae::LivesComponent(lives.get(), Tank->GetComponent<dae::TankComponent>(), livesText);
-	lives->AddComponent(livesObserver);
-	scene2.Add(lives);
-
-	const auto score{ std::make_shared<dae::GameObject>() };
-	auto scoreText = new dae::TextComponent(score.get(), "Score:", font);
-	scoreText->SetPosition({ 200,0 ,0 });
-	score->AddComponent(scoreText);
-	auto ScoreObserver = new ScoreComponent(score.get(), Tank->GetComponent<dae::TankComponent>(), scoreText);
-	score->AddComponent(ScoreObserver);
-	Tank->GetComponent<dae::TankComponent>()->AddObserver(ScoreObserver);
+	CreateLivesText(scene2, Tank, { 0,0,0 });
+	CreateScoreText(scene2, Tank, { 200,0,0 });
+	if (IsVersus)
+	{
+		CreateLivesText(scene2, Tank2, { 400,0,0 });
+		CreateScoreText(scene2, Tank2, { 600,0,0 });
+	}
 
 	const auto button = std::make_shared<dae::GameObject>();
 	auto textComponent = new dae::TextComponent(button.get(), "Skip", font);
@@ -306,7 +303,6 @@ void TronGame::CreateLevel2(dae::Scene& scene2, bool IsCoop, bool IsVersus) cons
 		});
 	scene2.Add(button);
 
-	scene2.Add(score);
 }
 
 void TronGame::CreateLevel3(dae::Scene& scene2, bool IsCoop, bool IsVersus) const
@@ -360,20 +356,13 @@ void TronGame::CreateLevel3(dae::Scene& scene2, bool IsCoop, bool IsVersus) cons
 	scene2.Add(Tank2);
 
 
-	const auto lives{ std::make_shared<dae::GameObject>() };
-	auto livesText = new dae::TextComponent(lives.get(), "Lives:", font);
-	lives->AddComponent(livesText);
-	auto livesObserver = new dae::LivesComponent(lives.get(), Tank->GetComponent<dae::TankComponent>(), livesText);
-	lives->AddComponent(livesObserver);
-	scene2.Add(lives);
-
-	const auto score{ std::make_shared<dae::GameObject>() };
-	auto scoreText = new dae::TextComponent(score.get(), "Score:", font);
-	scoreText->SetPosition({ 200,0 ,0 });
-	score->AddComponent(scoreText);
-	auto ScoreObserver = new ScoreComponent(score.get(), Tank->GetComponent<dae::TankComponent>(), scoreText);
-	score->AddComponent(ScoreObserver);
-	Tank->GetComponent<dae::TankComponent>()->AddObserver(ScoreObserver);
+	CreateLivesText(scene2, Tank, { 0,0,0 });
+	CreateScoreText(scene2, Tank, { 200,0,0 });
+	if (IsVersus)
+	{
+		CreateLivesText(scene2, Tank2, { 400,0,0 });
+		CreateScoreText(scene2, Tank2, { 600,0,0 });
+	}
 
 	const auto button = std::make_shared<dae::GameObject>();
 	auto textComponent = new dae::TextComponent(button.get(), "Skip", font);
@@ -387,7 +376,7 @@ void TronGame::CreateLevel3(dae::Scene& scene2, bool IsCoop, bool IsVersus) cons
 		});
 	scene2.Add(button);
 
-	scene2.Add(score);
+
 }
 
 void TronGame::CreateStartScreen(dae::Scene& scene) const
@@ -407,7 +396,7 @@ void TronGame::CreateStartScreen(dae::Scene& scene) const
 	button->AddComponent(new dae::ButtonComponent(button.get(), textComponent));
 	button->GetComponent<dae::ButtonComponent>()->SetFunction([this]
 		{
-			
+
 			Sleep(50);
 			CreateLevel1(*dae::SceneManager::GetInstance().GetScene(1), false, false);
 			dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(1).get());

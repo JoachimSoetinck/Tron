@@ -87,9 +87,9 @@ dae::TankComponent::TankComponent(GameObject* gameObject, bool isAI) :
 	, m_CurrentState{ TankState::idle }
 	, m_RigidBody{ GetGameObject()->GetComponent<RigidBody>() }
 	, m_pSprite{ GetGameObject()->GetComponent<SpriteComponent>() }
-, m_IsAI{isAI}
+	, m_IsAI{ isAI }
 {
-	if(m_IsAI)
+	if (m_IsAI)
 	{
 		m_CurrentState = TankState::Left;
 	}
@@ -117,7 +117,7 @@ void dae::TankComponent::Update()
 	if (m_nrOfLives <= 0)
 	{
 
-		for (auto component :m_pGameObject->GetComponents())
+		for (auto component : m_pGameObject->GetComponents())
 		{
 			m_pGameObject->RemoveComponent<BaseComponent>(component);
 		}
@@ -142,25 +142,25 @@ void dae::TankComponent::FixedUpdate()
 
 	for (auto object : objects)
 	{
-		if (m_IsAI)
-		{
-			SetState(static_cast<TankState>(m_TankState));
-			if (object->GetComponent<WallComponent>())
+		/*	if (m_IsAI)
 			{
-
-				bool isColliding = IsPointInRect(m_lookPoint, object->GetComponent<WallComponent>()->GetWallInfo());
-
-				if (isColliding)
+				SetState(static_cast<TankState>(m_TankState));
+				if (object->GetComponent<WallComponent>())
 				{
-					++m_TankState;
-					m_TankState %= 4;
-					
-					SetState(static_cast<TankState>(m_TankState));
 
+					bool isColliding = IsPointInRect(m_lookPoint, object->GetComponent<WallComponent>()->GetWallInfo());
+
+					if (isColliding)
+					{
+						++m_TankState;
+						m_TankState %= 4;
+
+						SetState(static_cast<TankState>(m_TankState));
+
+					}
 				}
-			}
-		}
-		else
+			}*/
+
 		{
 			if (object->GetComponent<WallComponent>())
 			{
@@ -174,10 +174,10 @@ void dae::TankComponent::FixedUpdate()
 				}
 			}
 		}
-		
+
 	}
 
-	
+
 
 	if (m_RigidBody)
 	{
@@ -200,8 +200,8 @@ void dae::TankComponent::Attack()
 	bullet->AddComponent(new CollisionComponent(bullet.get(), 10));
 	bullet->AddComponent(new BulletComponent(bullet.get(), m_lookDirection, this->GetGameObject()));
 	bullet->SetPosition(static_cast<int>(m_center.x + m_lookDirection.x * 25), static_cast<int>(m_center.y + m_lookDirection.y * 25));
-	if(GetGameObject()->GetComponent<BulletManager>()!= nullptr)
-	GetGameObject()->GetComponent<BulletManager>()->AddBullet(bullet);
+	if (GetGameObject()->GetComponent<BulletManager>() != nullptr)
+		GetGameObject()->GetComponent<BulletManager>()->AddBullet(bullet);
 
 }
 
