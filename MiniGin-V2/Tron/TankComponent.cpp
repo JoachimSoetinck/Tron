@@ -6,6 +6,7 @@
 #include "GameObject.h"
 #include "Scene.h"
 #include "SceneManager.h"
+#include "ServiceLocator.h"
 #include "SpriteComponent.h"
 #include "Timer.h"
 #include "WallComponent.h"
@@ -191,6 +192,7 @@ void dae::TankComponent::FixedUpdate()
 void dae::TankComponent::Attack()
 {
 	m_hasAttacked = true;
+	ServiceLocator::GetSoundSystem()->RegisterSound("../Data/Sound/Shot.wav");
 
 	const auto bullet{ std::make_shared<dae::GameObject>() };
 	bullet->AddComponent(new SpriteComponent(bullet.get(), Sprite("TronSprite.png", 1, 1, { 192,0,10,10 }), { 0,0,10,10 }));

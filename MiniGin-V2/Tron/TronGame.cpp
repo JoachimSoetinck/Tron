@@ -83,7 +83,9 @@ void TronGame::HandleInputPlayer(const std::shared_ptr<dae::GameObject> Tank, co
 		dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_DOWN, std::make_shared<MoveCommand>(Tank.get(), dae::TankComponent::TankState::idle), tank1, dae::InputManager::EInputState::Up);
 		dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_I, std::make_shared<RotateCommand>(Tank.get(), true, false), tank1, dae::InputManager::EInputState::Down);
 		dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_O, std::make_shared<RotateCommand>(Tank.get(), true, true), tank1, dae::InputManager::EInputState::Down);
+		break;
 	}
+	default: break;
 	}
 
 }
@@ -136,7 +138,7 @@ void TronGame::CreateLevel1(dae::Scene& scene2, bool isCoop, bool  isVersus) con
 	Tank2->AddComponent(new dae::TankComponent(Tank2.get()));
 	Tank2->AddComponent(new BulletManager(Tank2.get()));
 	Tank2->SetPosition(300, 305);
-	
+
 
 	HandleInputPlayer(Tank, 0);
 
@@ -157,7 +159,7 @@ void TronGame::CreateLevel1(dae::Scene& scene2, bool isCoop, bool  isVersus) con
 
 	else if (isVersus)
 	{
-	
+
 		HandleInputPlayer(Tank2, 1);
 	}
 
@@ -191,19 +193,19 @@ void TronGame::CreateLevel1(dae::Scene& scene2, bool isCoop, bool  isVersus) con
 			{
 				Sleep(750);
 				CreateLevel2(*dae::SceneManager::GetInstance().GetScene(2).get(), true, false);
-				dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(6).get());
+				dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(5).get());
 			}
 			else if (isVersus)
 			{
 				Sleep(750);
-				CreateLevel2(*dae::SceneManager::GetInstance().GetScene(2).get(), false, true);
-			
-				dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(2).get());
+				CreateLevel2(*dae::SceneManager::GetInstance().GetScene(5).get(), false, true);
+
+				dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(8).get());
 			}
 			else
 			{
 				Sleep(1000);
-				CreateLevel2(*dae::SceneManager::GetInstance().GetScene(2).get(), false, false);
+				CreateLevel2(*dae::SceneManager::GetInstance().GetScene(8).get(), false, false);
 				dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(2).get());
 			}
 
@@ -281,10 +283,28 @@ void TronGame::CreateLevel2(dae::Scene& scene2, bool IsCoop, bool IsVersus) cons
 	textComponent->SetPosition({ 300, 550,0 });
 	button->AddComponent(textComponent);
 	button->AddComponent(new dae::ButtonComponent(button.get(), textComponent));
-	button->GetComponent<dae::ButtonComponent>()->SetFunction([]
+	button->GetComponent<dae::ButtonComponent>()->SetFunction([this, IsCoop, IsVersus]
 		{
-			Sleep(500);
-			dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(3).get());
+			if (IsCoop)
+			{
+				Sleep(750);
+				CreateLevel2(*dae::SceneManager::GetInstance().GetScene(2).get(), true, false);
+				dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(6).get());
+			}
+			else if (IsVersus)
+			{
+				Sleep(750);
+				CreateLevel2(*dae::SceneManager::GetInstance().GetScene(5).get(), false, true);
+
+				dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(9).get());
+			}
+			else
+			{
+				Sleep(1000);
+				CreateLevel2(*dae::SceneManager::GetInstance().GetScene(8).get(), false, false);
+				dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(3).get());
+			}
+
 		});
 	scene2.Add(button);
 
@@ -305,6 +325,8 @@ void TronGame::CreateLevel3(dae::Scene& scene2, bool IsCoop, bool IsVersus) cons
 
 	Tank->SetPosition(70, 100);
 
+
+	HandleInputPlayer(Tank, 0);
 
 	const auto Tank2{ std::make_shared<dae::GameObject>() };
 
@@ -356,18 +378,21 @@ void TronGame::CreateLevel3(dae::Scene& scene2, bool IsCoop, bool IsVersus) cons
 	textComponent->SetPosition({ 300, 550,0 });
 	button->AddComponent(textComponent);
 	button->AddComponent(new dae::ButtonComponent(button.get(), textComponent));
-	button->GetComponent<dae::ButtonComponent>()->SetFunction([]
+	button->GetComponent<dae::ButtonComponent>()->SetFunction([this]
 		{
-			Sleep(500);
+
+			Sleep(1000);
+
 			dae::SceneManager::GetInstance().SetActiveScene(dae::SceneManager::GetInstance().GetScene(0).get());
+
 		});
 	scene2.Add(button);
-
 
 }
 
 void TronGame::CreateStartScreen(dae::Scene& scene) const
 {
+	dae::ServiceLocator::GetSoundSystem()->RegisterSound("../Data/Sound/Start.wav");
 
 	auto font = dae::ResourceManager::GetInstance().LoadFont("BurgerTimeFont.otf", 20);
 	const auto startScreen = std::make_shared<dae::GameObject>();

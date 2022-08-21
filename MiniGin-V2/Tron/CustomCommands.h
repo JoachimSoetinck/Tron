@@ -30,24 +30,6 @@ private:
 	dae::TankComponent::TankState m_state;
 };
 
-class Test final : public Command
-{
-public:
-	Test(dae::GameObject* gameObject) :Command(gameObject) {}
-	~Test() override = default;
-
-	Test(const Test& other) = delete;
-	Test(Test&& other) noexcept = delete;
-	Test& operator=(const Test& other) = delete;
-	Test& operator=(Test&& other) noexcept = delete;
-
-	void Execute() override
-	{
-		std::cout << "Test";
-	}
-private:
-	dae::TankComponent::TankState m_state;
-};
 
 class AttackCommand final : public Command
 {

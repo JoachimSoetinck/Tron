@@ -26,7 +26,7 @@ public:
 
 private:
 	glm::vec2 m_direction{1,0};
-	int m_NrOfBounces{ 0 };
+	int m_nrOfBounces{ 0 };
 	const int m_maxNrOfBounces;
 
 	bool m_isDead = false;

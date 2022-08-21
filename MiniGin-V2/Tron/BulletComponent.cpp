@@ -6,12 +6,13 @@
 #include "RigidBody.h"
 #include "Scene.h"
 #include "SceneManager.h"
+#include "ServiceLocator.h"
 #include "TankComponent.h"
 #include "WallComponent.h"
 
 BulletComponent::BulletComponent(dae::GameObject* object, const glm::vec2 direction, dae::GameObject* parent) :
 	BaseComponent(object),
-	m_NrOfBounces{ 0 },
+	m_nrOfBounces{ 0 },
 	m_maxNrOfBounces{ 5 },
 	m_direction{ direction },
 	m_pRigidBody{ GetGameObject()->GetComponent<dae::RigidBody>() }
@@ -67,6 +68,7 @@ void BulletComponent::FixedUpdate()
 					m_pGameObject->GetParent()->GetComponent<dae::TankComponent>()->NotifyAllObservers(Event::GivePoints);
 					object->GetComponent<dae::TankComponent>()->LoseLive();
 
+					dae::ServiceLocator::GetSoundSystem()->RegisterSound("../Data/Sound/Hit.wav");
 				}
 
 			}
