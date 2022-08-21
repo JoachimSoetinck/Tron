@@ -22,7 +22,7 @@ Inputs:
 - Command pattern is used to execute all task of Tank
 
 State:
-- Both PeterPepper and the hotdog enemy use a state Pattern to change their movement direction.
+- Tank uses state pattern for movement and attacking
 
 Other:
 - Load the game levels with text Files
