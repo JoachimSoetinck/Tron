@@ -99,7 +99,6 @@ dae::TankComponent::TankComponent(GameObject* gameObject, bool isAI) :
 
 void dae::TankComponent::Update()
 {
-	m_nrOFTanksKilled = floor(m_score % 3);
 	if (m_hasAttacked)
 	{
 		elapsedSec += dae::Time::GetInstance().GetDeltaTime();
@@ -116,8 +115,13 @@ void dae::TankComponent::Update()
 
 	if (m_nrOfLives <= 0)
 	{
+<<<<<<< HEAD
 
 		for (auto component : m_pGameObject->GetComponents())
+=======
+		//SceneManager::GetInstance().GetActiveScene()->Remove(std::make_shared<GameObject>(*m_pGameObject));
+		for (auto component :m_pGameObject->GetComponents())
+>>>>>>> parent of d872856 (Adding level swap on score limit reached)
 		{
 			m_pGameObject->RemoveComponent<BaseComponent>(component);
 		}
